@@ -1230,6 +1230,8 @@ function setupSupportRealtime(){
 // ===== CONFIGURAÇÃO DO CLIENTE (trocar só estas 3 linhas) =====
 const SUPA_URL='https://yobtuzvmaimetwrejunk.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvYnR1enZtYWltZXR3cmVqdW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0NTU5MTIsImV4cCI6MjEwNzAzMTkxMn0.F7kpe-lLOQSRA5DvVRgb7kLNVATv3OfYUvN3bKfzqA0';
+// Verificação em duas etapas (app autenticador): true = obrigatória, false = só e-mail e senha
+const EXIGIR_2FA=false;
 const ADMIN={email:'pele@teste.com.br',name:'Admin',role:'admin'};
 // ===============================================================
 
@@ -1421,6 +1423,7 @@ async function doLogin(){
 // MFA verificado mas ainda não passou pelo desafio nesta sessão, exige o código antes de
 // liberar; se nunca configurou MFA, força a configuração; senão, libera direto.
 async function checkMfaAndProceed(){
+  if(!EXIGIR_2FA){ await finishLoginAfterAuth(); return; } // 2 fatores desligado
   const { data: aalData } = await db.auth.mfa.getAuthenticatorAssuranceLevel();
 
   if(aalData?.currentLevel === 'aal2'){

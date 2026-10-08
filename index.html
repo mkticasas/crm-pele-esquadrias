@@ -30,6 +30,10 @@
   .login-logo span{color:var(--accent);}
   .login-sub{font-size:13px;color:var(--text3);margin-bottom:32px;}
   .login-logo-wrap{text-align:center;margin-bottom:20px;}
+  .cli-chip{display:inline-flex;align-items:center;background:#fff;border-radius:8px;padding:4px 8px;line-height:0;}
+  .cli-chip img{height:32px !important;width:auto !important;display:block;opacity:1 !important;margin:0 !important;}
+  .cli-chip.lg{border-radius:12px;padding:10px 16px;}
+  .cli-chip.lg img{height:64px !important;}
   .login-logo-wrap img{width:auto;height:22px;object-fit:contain;display:block;margin:0 auto;opacity:.85;}
   .login-card h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:600;margin-bottom:24px;}
   .login-error{font-size:13px;color:var(--red);margin-top:10px;display:none;}
@@ -426,8 +430,8 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
 <!-- LOGIN -->
 <div class="login-screen show" id="loginScreen">
   <div class="login-card" id="loginStep1">
-    <div class="login-logo-wrap"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjYxLjk3IDE1LjY1IDExNzcuMTIgMzAyLjE0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImlNYXJjYXMiPjxwYXRoIGZpbGw9IiNDNTJGNDMiIGQ9Ik0yMDIuOSw3MS4wNkw3MS42OCwxNi42NmMtMS4wNS0uNjctMi4xOC0xLjAxLTMuMzgtMS4wMS0zLjA0LDAtNi4zMywyLjQyLTYuMzMsNi4zMnYxMjAuMDhjMCwzLjksMy4yOCw2LjMyLDYuMzMsNi4zMiwxLjIsMCwyLjMzLS4zNCwzLjM4LTEuMDFsMTMxLjIyLTYwLjQzYzIuNzItMS43NCw0LjM1LTQuNzEsNC4zNS03Ljk0cy0xLjYzLTYuMi00LjM1LTcuOTRaIi8+PHBhdGggZmlsbD0iI0Y1RjVGNSIgZD0iTTEyNi44NSwxNDQuMjh2MTcxLjE5YzAsMS4yOC0xLjA0LDIuMzItMi4zMiwyLjMyaC02MC4xOWMtMS4yOCwwLTIuMzItMS4wNC0yLjMyLTIuMzJ2LTE0My4zOGMwLS45LjUzLTEuNzIsMS4zNS0yLjFsMi41OS0xLjIsMTcuNjctOC4xNiw3LjE0LTMuMywxNC40Ny02LjY5LDEwLjM0LTQuNzcsNy45OC0zLjY5YzEuNTQtLjcxLDMuMjkuNDEsMy4yOSwyLjFaIi8+PHBhdGggZmlsbD0iI0Y1RjVGNSIgZD0iTTQyOS40Miw2Ny45NXYyNDcuNTFjMCwxLjI4LTEuMDQsMi4zMi0yLjMyLDIuMzJoLTYwLjE5Yy0xLjI4LDAtMi4zMi0xLjA0LTIuMzItMi4zMnYtMzIuMDZoLjU3bC0uNTctLjY1di0xMDIuMThjMC0yLjEzLTIuNjQtMy4xMy00LjA1LTEuNTRsLTEuMDcsMS4yLTEwLjE3LDExLjQ3LTYuMzMsNy4xMy0zLjg0LDQuMzMtMTAuMTYsMTEuNDYtNy42MSw4LjU4LTIuNTYsMi44OC0xLjk2LDIuMjItOC4yLDkuMjQtOC44OSwxMC4wMi0xLjI4LDEuNDQtMTAuMTcsMTEuNDctMTAuMTYsMTEuNDVoMHMtLjQ2LjAxLS40Ni4wMWwtMTAuMDUtMTEuNDYtMTAuMDYtMTEuNDctMS4wNC0xLjE5LTkuMDEtMTAuMjctOC44LTEwLjA0LTEuMjUtMS40Mi0yLjU2LTIuOTItNy40OS04LjU0LTEwLjA2LTExLjQ2aDBjLTEuNDEtMS42MS00LjA2LS42MS00LjA2LDEuNTN2MTEwLjc2YzAsMS4yOC0xLjA0LDIuMzItMi4zMiwyLjMyaC02MC4yYy0xLjI4LDAtMi4zMi0xLjA0LTIuMzItMi4zMnYtMTgzLjMxYzAtLjkuNTMtMS43MywxLjM1LTIuMTFsMi40My0xLjEyLDEyLjk2LTUuOTksNC44OC0yLjI1LDE5LjkzLTkuMjEsMS42OC0uNzgsMTQuMDgtNi41Yy45My0uNDMsMi4wNC0uMiwyLjcxLjU4bDQuODIsNS40OSwxLjA2LDEuMjEsMTAuMDUsMTEuNDYsMTAuMDUsMTEuNDYuNDUuNTEsOS42MSwxMC45NSwxMC4wNSwxMS40NiwxLjk2LDIuMjQsOC4wOSw5LjIyLDEwLjA1LDExLjQ2LDIuOTcsMy4zOS41LS41NiwxLjE0LTEuMjksMS4zNy0xLjU0LDIuNDctMi43OSw2LjMzLTcuMTMsMS4zNy0xLjU0LDguOC05LjkzLjEzLS4xNSwxLjIzLTEuMzgsMy43Ni00LjI0LDUuMDUtNS42OSwxLjM2LTEuNTMsOC44LTkuOTMsMS4zNi0xLjUzaC4wNXYtLjA2bDQuOTktNS42MywzLjc2LTQuMjQsMS4zNi0xLjUzLDguODEtOS45MywxLjM2LTEuNTMsMS4zMy0xLjUsNC45OS01LjYzLDIuNDgtMi44LDEuMzctMS41NCw4LjgtOS45MiwxLjM3LTEuNTQsMi42MS0yLjk1LDQuOTgtNS42MSwxLjIxLTEuMzcsMS4zNi0xLjUzLDguODEtOS45My42Ny0uNzVjLjQ0LS40OSwxLjA3LS43OCwxLjczLS43OGg0My43NWMxLjI4LDAsMi4zMiwxLjA0LDIuMzIsMi4zMloiLz48cGF0aCBmaWxsPSIjRjVGNUY1IiBkPSJNNTA3LjE0LDIxOS44OWgzOS40MWMtNi4xNi0xMy4yNC0yMy43MS0xNi4zMi0zNi45NC0xNi4zMi0xNC43OCwwLTI5LjI1LDQuMzEtNDMuNDEsMTIuMzFsLTE3LjI0LTM5LjcxYzE4LjE2LTEyLjkzLDQ0LjMzLTIwLjYzLDcxLjczLTIwLjYzLDM1LjcxLDAsODkuMjgsMTIuOTMsODkuMjgsNzIuOTZ2ODQuNjZoLTYxLjU3di04LjMxYy0xMS4zOSw3LjA4LTI2LjE3LDExLjM5LTQ0LjMzLDExLjctMzMuNTYsMC01OC44LTE0LjQ3LTYwLjM0LTQ2LjE4LTEuODUtNDAuMDIsMzYuMzMtNTAuNDksNjMuNDItNTAuNDlaTTUyMi44NCwyNzguMzhjNy43LDAsMjAuOTMtMi43NywyNS41NS0xOS40di0xMS4zOWgtMTQuNDdjLTE5LjcsMC0zMC43OSw0LjYyLTMxLjQsMTUuMzktLjYyLDEyLjAxLDEyLjAxLDE1LjM5LDIwLjMyLDE1LjM5WiIvPjxwYXRoIGZpbGw9IiNGNUY1RjUiIGQ9Ik02ODQuMDYsMTU5Ljg1djIxLjI0YzUuMjMtMTAuMTYsMjAuMzItMjEuODYsNDUuNTYtMjIuNDd2NTAuNDljLTMuMDgtLjYyLTYuNDctLjkyLTkuODUtLjkyLTE3LjU1LDAtMzUuNzEsOC42Mi0zNS43MSwzNy41NnY2Ny40MmgtNjEuNTd2LTE1My45M2w2MS41Ny42MloiLz48cGF0aCBmaWxsPSIjRjVGNUY1IiBkPSJNODk1LjI1LDI4Mi4zOGMtMTUuNywyMS41NS0zOS43MSwzNC40OC03NC4xOSwzNC40OC01NC44LDAtOTEuNDMtMzIuMzMtOTEuNDMtODAuNjZzMzYuNjQtODAuNjYsOTEuNDMtODAuNjZjMzQuNDgsMCw1OC44LDEyLjkzLDc0LjE5LDM0LjQ4bC00NS44NywyOS44NmMtNS41NC05LjI0LTE2LjAxLTE1LjA4LTI4LjMyLTE1LjA4LTE4LjQ3LDAtMzIuNjMsMTIuOTMtMzIuNjMsMzEuNHMxNC4xNiwzMS40LDMyLjYzLDMxLjRjMTIuMzEsMCwyMi43OC01Ljg1LDI4LjMyLTE1LjA4bDQ1Ljg3LDI5Ljg2WiIvPjxwYXRoIGZpbGw9IiNGNUY1RjUiIGQ9Ik05NjUuOTYsMjE5Ljg5aDM5LjQxYy02LjE2LTEzLjI0LTIzLjcxLTE2LjMyLTM2Ljk0LTE2LjMyLTE0Ljc4LDAtMjkuMjUsNC4zMS00My40MSwxMi4zMWwtMTcuMjQtMzkuNzFjMTguMTYtMTIuOTMsNDQuMzMtMjAuNjMsNzEuNzMtMjAuNjMsMzUuNzEsMCw4OS4yOCwxMi45Myw4OS4yOCw3Mi45NnY4NC42NmgtNjEuNTd2LTguMzFjLTExLjM5LDcuMDgtMjYuMTcsMTEuMzktNDQuMzMsMTEuNy0zMy41NiwwLTU4LjgtMTQuNDctNjAuMzQtNDYuMTgtMS44NS00MC4wMiwzNi4zMy01MC40OSw2My40Mi01MC40OVpNOTgxLjY2LDI3OC4zOGM3LjcsMCwyMC45NC0yLjc3LDI1LjU1LTE5LjR2LTExLjM5aC0xNC40N2MtMTkuNywwLTMwLjc5LDQuNjItMzEuNCwxNS4zOS0uNjIsMTIuMDEsMTIuMDEsMTUuMzksMjAuMzIsMTUuMzlaIi8+PHBhdGggZmlsbD0iI0Y1RjVGNSIgZD0iTTExNjYuODYsMTk3LjcyYy01LjIzLDAtMTAuMTYuNjItMTAuNDcsMi43Ny0uOTIsNC4zMSwyMC4zMiw1LjU0LDQyLjE4LDE0Ljc4LDM1LjEsMTQuNzgsNDMuNDEsMzcuODcsMzkuNzEsNjAuMDMtNS41NCwzNi4wMi0zNy41Niw0Mi40OS02Ny43Myw0Mi40OS0yNy4wOSwwLTY2LjUtNC42Mi04OS4yOC0xOC4xNmwxNS4zOS00Mi4xOGMxOC40Nyw4LDQwLjAyLDE0Ljc4LDYwLjM0LDE0Ljc4LDUuMjMsMCw5Ljg1LS42MiwxMC4xNi0yLjQ2LjYyLTQuMzEtMjAuMzItNS41NC00Mi4xOC0xNC43OC0zNS40LTE1LjA4LTQzLjEtMzguMTctNDAuNjQtNTcuNTcsNC45My0zOS4xLDQ3LjEtNDMuNzIsNzguODEtNDMuNzIsMzguNzksMCw2MC4wMyw4LjYyLDczLjg5LDEzLjU1bC0xMC40Nyw0NS41NmMtMTYuNjItOC00MC42NC0xNS4wOS01OS43Mi0xNS4wOVoiLz48L3N2Zz4=" alt="iMarcas"></div>
-    <div class="login-logo">Pelé Esquadrias</div>
+    <div class="login-logo-wrap"><span class="cli-chip lg"><img src="assets/logo-pele.svg" alt="Pelé Esquadrias"></span></div>
+    <div class="login-logo">CRM Comercial</div>
     <div class="login-sub">Gestão comercial · Acesso restrito</div>
     <h2>Entrar</h2>
     <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" placeholder="seu@email.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
@@ -438,7 +442,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
 
   <!-- ETAPA 2: código do app autenticador -->
   <div class="login-card" id="loginStep2" style="display:none;">
-    <div class="login-logo">Pelé Esquadrias</div>
+    <div class="login-logo">CRM Comercial</div>
     <div class="login-sub" style="margin-bottom:24px;">Verificação em duas etapas</div>
     <h2>Digite o código do seu app autenticador</h2>
     <div class="form-group">
@@ -452,7 +456,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
 
   <!-- ETAPA OPCIONAL: configurar MFA no primeiro acesso -->
   <div class="login-card" id="loginStepSetupMfa" style="display:none;width:380px;">
-    <div class="login-logo">Pelé Esquadrias</div>
+    <div class="login-logo">CRM Comercial</div>
     <div class="login-sub" style="margin-bottom:20px;">Configure a verificação em duas etapas</div>
     <div style="background:var(--bg3);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
       <div style="font-size:12px;color:var(--text3);font-weight:600;margin-bottom:8px;">Como configurar:</div>
@@ -481,7 +485,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
 <!-- DRAWER -->
 <div class="drawer" id="drawer">
   <div class="drawer-header">
-    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;gap:6px;">Pelé Esquadrias</div>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;gap:6px;"><span class="cli-chip"><img src="assets/logo-pele.svg" alt="Pelé Esquadrias"></span></div>
     <button class="modal-close" onclick="closeDrawer()">×</button>
   </div>
   <div class="drawer-profile" onclick="openProfileModal()">
@@ -526,7 +530,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
 <main class="main">
   <div class="topbar">
     <div class="topbar-left">
-      <div class="topbar-logo" onclick="showPage('pipeline')" style="cursor:pointer;">Pelé Esquadrias</div>
+      <div class="topbar-logo" onclick="showPage('pipeline')" style="cursor:pointer;"><span class="cli-chip"><img src="assets/logo-pele.svg" alt="Pelé Esquadrias"></span></div>
       <span class="topbar-sep">·</span>
       <div class="topbar-title" id="pageTitle">Dashboard</div>
       <span id="brClock" style="font-size:12px;font-weight:400;color:var(--text3);background:var(--bg3);padding:3px 10px;border-radius:20px;font-family:'DM Sans',sans-serif;letter-spacing:.3px;display:none;"></span>

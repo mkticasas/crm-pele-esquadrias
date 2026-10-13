@@ -420,7 +420,8 @@
     .detail-panel{top:calc(56px + env(safe-area-inset-top))!important;}
     /* NAVEGAÇÃO */
     .mobile-nav{z-index:1000;padding-bottom:max(8px,env(safe-area-inset-bottom));}
-    .mobile-nav-item{font-size:11px;}
+    .mobile-nav-inner{width:100%;justify-content:space-between;}
+    .mobile-nav-item{font-size:11px;flex:1;min-width:0;padding:4px 0;}
     #fabNewLead{bottom:calc(84px + env(safe-area-inset-bottom))!important;}
     body.detalhe-aberto #fabNewLead{display:none!important;}
   }

@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="https://mkticasas.github.io/imarcas-tarefas/assets/favicon.svg">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CRM Pelé">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d0f13">
 <title>CRM — Pelé Esquadrias</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -350,6 +357,74 @@
     footer{display:none!important;}
   }
 
+
+  /* ── MOBILE v2 (iMarcas) ───────────────────────────── */
+  .stage-tabs{display:none;}
+  .leads-cards,.leads-mobile-top{display:none;}
+  @media(max-width:640px){
+    input,select,textarea{font-size:16px!important;}            /* iPhone não dá zoom ao tocar no campo */
+    /* TOPO: só logo, WhatsApp (ícone) e avatar */
+    .topbar{gap:8px;height:calc(56px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);}
+    .topbar-left{min-width:0;flex:1;}
+    .cli-chip{padding:3px 7px;border-radius:7px;}
+    .cli-chip img{height:26px!important;}
+    #brClock{display:none!important;}
+    .topbar .btn-primary.btn-sm{display:none;}
+    .topbar a.btn-sm{font-size:0;padding:8px;gap:0;border-radius:10px;}
+    .topbar a.btn-sm svg{width:18px;height:18px;}
+    /* FUNIL */
+    .pipeline-header{padding:10px 14px 0;}
+    .pipeline-header-top{display:none;}
+    .pipeline-filters-bar{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding-bottom:10px;border-bottom:none;scrollbar-width:none;}
+    .pipeline-filters-bar::-webkit-scrollbar{display:none;}
+    .pipeline-filters-bar>*{flex:0 0 auto!important;min-width:0!important;width:auto;}
+    .pf-search-wrap{flex:0 0 100%!important;}
+    .pipeline-filters-bar{flex-wrap:wrap;}
+    .pipeline-filters-bar>div:not(.pf-search-wrap)>svg{display:none;}
+    .pipeline-filters-bar select{width:auto!important;min-width:0!important;height:38px;padding:0 26px 0 12px;border-radius:999px;}
+    .pipeline-filters-bar{flex-wrap:wrap;row-gap:8px;}
+    #pf-search{width:100%!important;height:42px;}
+    .topbar button[onclick="openDrawer()"]{display:none!important;}
+    .stage-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 14px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .stage-tabs::-webkit-scrollbar{display:none;}
+    .stage-tab{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--border);font-size:13px;color:var(--text2);white-space:nowrap;}
+    .stage-tab .dot{width:8px;height:8px;border-radius:50%;}
+    .stage-tab b{font-weight:600;color:var(--text);}
+    .stage-tab.on{border-color:var(--accent);color:var(--text);background:rgba(61,126,255,.12);}
+    .pipeline-wrap{padding:4px 0 96px;scroll-snap-type:x mandatory;scroll-padding:0 16px;}
+    .pipeline-board{gap:10px;padding:0 16px;}
+    .pipeline-col{width:calc(100vw - 44px);scroll-snap-align:start;height:calc(100dvh - 290px);min-height:320px;}
+    .pipeline-col-title{font-size:14px;}
+    .lead-card{padding:14px;cursor:pointer;}
+    .lead-name{font-size:16px;font-weight:600;}
+    .lead-meta-row{font-size:13px;}
+    .lead-value{font-size:15px;}
+    .lead-card .wa-btn{padding:8px 12px!important;font-size:13px!important;}
+    /* LISTA DE LEADS em cards */
+    #page-leads .table-wrap,#page-dashboard .table-wrap{display:none;}
+    .leads-cards{display:flex;flex-direction:column;gap:10px;}
+    #page-leads .card{background:transparent;border:none;padding:0;}
+    #page-leads .card-title{display:none;}
+    .leads-mobile-top{display:flex;gap:8px;margin-bottom:12px;}
+    .leads-mobile-top input{flex:1;height:44px;}
+    .leads-mobile-top .btn{height:44px;}
+    #page-leads .filter-bar{display:none;}
+    #page-leads.filtros-on .filter-bar{display:flex;flex-wrap:wrap;margin-bottom:12px;}
+    #page-leads .filter-group:has(#f-search){display:none;}
+    .lead-stage-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:3px 10px;margin:6px 0 8px;}
+    .lead-stage-tag .dot{width:7px;height:7px;border-radius:50%;}
+    /* DETALHE DO LEAD */
+    .stage-pills{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;}
+    .stage-pill{text-align:center;padding:10px 8px!important;font-size:13px!important;}
+    .detail-panel .wa-btn{padding:10px 14px;font-size:14px;}
+    .detail-panel{top:calc(56px + env(safe-area-inset-top))!important;}
+    /* NAVEGAÇÃO */
+    .mobile-nav{z-index:1000;padding-bottom:max(8px,env(safe-area-inset-bottom));}
+    .mobile-nav-item{font-size:11px;}
+    #fabNewLead{bottom:calc(84px + env(safe-area-inset-bottom))!important;}
+    body.detalhe-aberto #fabNewLead{display:none!important;}
+  }
+
   .toggle-on{background:var(--accent)!important;border-color:var(--accent)!important;}
   .toggle-thumb-on{left:21px!important;background:#fff!important;}
   @keyframes bellShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
@@ -581,18 +656,16 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
           <tbody id="recentLeadsTable"><tr><td colspan="7"><div class="loading">Carregando...</div></td></tr></tbody>
         </table>
       </div>
+      <div class="leads-cards" id="recentLeadsCards"></div>
     </div>
   </div>
 
   <!-- LEADS -->
   <div class="page" id="page-leads">
+    <div class="leads-mobile-top"><input type="text" placeholder="Buscar nome ou telefone..." oninput="document.getElementById('f-search').value=this.value;filterLeads()"><button class="btn btn-ghost" onclick="document.getElementById('page-leads').classList.toggle('filtros-on')">Filtros</button></div>
     <div class="filter-bar">
       <div class="filter-group"><label>Estágio</label>
-        <select id="f-stage" onchange="filterLeads()">
-          <option value="">Todos</option><option value="new">Novo Lead</option><option value="contact">Contato Realizado</option>
-          <option value="proposal">Proposta Enviada</option><option value="negotiation">Em Negociação</option>
-          <option value="won">Fechado - Ganho</option><option value="lost">Lead Perdido</option>
-        </select>
+        <select id="f-stage" onchange="filterLeads()"><option value="">Todos</option></select>
       </div>
       <div class="filter-group"><label>Vendedor</label><select id="f-seller" onchange="filterLeads()"><option value="">Todos</option></select></div>
       <div class="filter-group"><label>Origem</label>
@@ -613,6 +686,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
           <tbody id="leadsTable"><tr><td colspan="9"><div class="loading">Carregando...</div></td></tr></tbody>
         </table>
       </div>
+      <div class="leads-cards" id="leadsCards"></div>
     </div>
   </div>
 
@@ -638,7 +712,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
         <div id="pf-seller-wrap" style="position:relative;display:flex;align-items:center;gap:6px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text3);flex-shrink:0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
           <select id="pf-seller" onchange="renderPipeline()" style="width:auto;padding-right:28px;">
-            <option value="">Todos os vendedores</option>
+            <option value="">Vendedor: todos</option>
           </select>
         </div>
         <!-- Ordenar -->
@@ -655,7 +729,7 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
         <!-- Temperatura -->
         <div style="display:flex;align-items:center;gap:6px;">
           <select id="pf-temp" onchange="renderPipeline()" style="width:auto;padding-right:28px;">
-            <option value="">Todos os leads</option>
+            <option value="">Temperatura</option>
             <option value="hot">🔥 Quentes</option>
             <option value="warm">🌡️ Mornos</option>
             <option value="cold">❄️ Frios</option>
@@ -665,7 +739,8 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
     </div>
 
     <!-- Board com scroll horizontal isolado -->
-    <div class="pipeline-wrap">
+    <div class="stage-tabs" id="stageTabs"></div>
+    <div class="pipeline-wrap" id="pipelineWrap">
       <div class="pipeline-board" id="pipelineBoard">
         <div class="loading" style="grid-column:span 6;">Carregando...</div>
       </div>
@@ -1666,14 +1741,21 @@ async function loadLeads(){
   if(error){showToast('Erro ao carregar leads.','error');return;}
   allLeads=data||[];filterLeads();
 }
+function preencherFiltroEstagio(){
+  const el=document.getElementById('f-stage'); if(!el||el.options.length>1)return;
+  Object.entries(STAGES).forEach(([k,st])=>el.add(new Option(st.label,k)));
+}
 function populateSellerDropdowns(){
+  preencherFiltroEstagio();
   ['l-seller','f-seller','pf-seller','r-seller'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const prev=el.value;
     while(el.options.length>1)el.remove(1);
     allSellers.filter(s=>s.status==='active').forEach(s=>el.add(new Option(s.nickname||s.name,s.id)));
     el.value=prev;
-  });
+  });  // com 1 vendedor só, o filtro de vendedor no funil não faz sentido
+  const sw=document.getElementById('pf-seller-wrap');
+  if(sw&&!(currentUser&&currentUser.role==='seller'))sw.style.display=allSellers.filter(s=>s.status==='active').length>1?'flex':'none';
 }
 
 // DASHBOARD
@@ -1710,6 +1792,8 @@ function renderRecentLeads(){
   const r=allLeads.slice(0,8);
   if(!r.length){tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><p>Nenhum lead ainda.</p></div></td></tr>';return;}
   tbody.innerHTML=r.map(l=>leadRow(l,7)).join('');
+  const rc=document.getElementById('recentLeadsCards');
+  if(rc)rc.innerHTML=r.slice(0,5).map(l=>{const st=STAGES[l.stage]||STAGES.new;return pipelineCard(l).replace('<div class="lead-meta">','<div class="lead-stage-tag"><span class="dot" style="background:'+st.dot+'"></span>'+st.label+'</div><div class="lead-meta">');}).join('');
 }
 
 // LEADS TABLE
@@ -1723,8 +1807,10 @@ function filterLeads(){
   });
   document.getElementById('leadsCount').textContent=`${f.length} lead${f.length!==1?'s':''}`;
   const tbody=document.getElementById('leadsTable');
-  if(!f.length){tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><p>Nenhum lead encontrado.</p></div></td></tr>';return;}
+  const cardsEl=document.getElementById('leadsCards');
+  if(!f.length){tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><p>Nenhum lead encontrado.</p></div></td></tr>';if(cardsEl)cardsEl.innerHTML='<div class="empty-state"><p>Nenhum lead encontrado.</p></div>';return;}
   tbody.innerHTML=f.map(l=>leadRow(l,9)).join('');
+  if(cardsEl)cardsEl.innerHTML=f.map(l=>{const st=STAGES[l.stage]||STAGES.new;return pipelineCard(l).replace('<div class="lead-meta">','<div class="lead-stage-tag"><span class="dot" style="background:'+st.dot+'"></span>'+st.label+'</div><div class="lead-meta">');}).join('');
 }
 function leadRow(l,cols){
   const s=allSellers.find(s=>s.id==l.seller_id);
@@ -1740,7 +1826,7 @@ function leadRow(l,cols){
     <td>${s?`<span style="display:flex;align-items:center;gap:6px;"><div class="avatar-sm" style="width:20px;height:20px;font-size:9px;background:${s.color||'#3d7eff'}">${initials(s.nickname||s.name)}</div>${s.nickname||s.name}</span>`:'—'}</td>
     <td><span class="badge ${stage.badge}">${stage.label}</span></td>
     <td>${value}</td><td>${date}</td>
-    ${cols>=9?`<td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editLead(${l.id})">Editar</button></td>`:''}
+    ${cols>=9?`<td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();editLead('${l.id}')">Editar</button></td>`:''}
   </tr>`;
 }
 function clearFilters(){['f-stage','f-seller','f-origin'].forEach(id=>document.getElementById(id).value='');['f-date-from','f-date-to','f-search'].forEach(id=>document.getElementById(id).value='');filterLeads();}
@@ -1784,6 +1870,33 @@ function renderPipeline(){
       ${total>0?`<div class="pipeline-col-footer">R$ ${total.toLocaleString('pt-BR')}</div>`:''}
     </div>`;
   }).join('');
+  renderStageTabs(filtered);
+}
+
+// Abas de estágio (celular): toque leva até a coluna; a aba acompanha a rolagem
+function renderStageTabs(filtered){
+  const el=document.getElementById('stageTabs'); if(!el)return;
+  el.innerHTML=Object.entries(STAGES).map(([k,st])=>{
+    const n=filtered.filter(l=>l.stage===k).length;
+    return `<button class="stage-tab" data-k="${k}" onclick="irParaEstagio('${k}')"><span class="dot" style="background:${st.dot}"></span>${st.label} <b>${n}</b></button>`;
+  }).join('');
+  const wrap=document.getElementById('pipelineWrap');
+  if(wrap&&!wrap._tabs){wrap._tabs=true;wrap.addEventListener('scroll',()=>{clearTimeout(wrap._t);wrap._t=setTimeout(marcarAbaAtiva,80);},{passive:true});}
+  marcarAbaAtiva();
+}
+function irParaEstagio(k){
+  const col=document.querySelector('.pipeline-col[data-stage="'+k+'"]'); if(!col)return;
+  const wrap=document.getElementById('pipelineWrap');
+  wrap.scrollTo({left:col.offsetLeft-16,behavior:'smooth'});
+}
+function marcarAbaAtiva(){
+  const wrap=document.getElementById('pipelineWrap'); if(!wrap)return;
+  let melhor=null,dist=1e9;
+  document.querySelectorAll('.pipeline-col').forEach(c=>{const d=Math.abs(c.offsetLeft-16-wrap.scrollLeft);if(d<dist){dist=d;melhor=c.dataset.stage;}});
+  document.querySelectorAll('.stage-tab').forEach(t=>{
+    const on=t.dataset.k===melhor; t.classList.toggle('on',on);
+    if(on&&wrap._tabs){const tabs=document.getElementById('stageTabs');const x=t.offsetLeft-tabs.clientWidth/2+t.clientWidth/2;tabs.scrollTo({left:x,behavior:'smooth'});}
+  });
 }
 
 function pipelineCard(l){
@@ -2054,9 +2167,10 @@ function openDetail(id){
   document.getElementById('dp-wa-wrap').innerHTML=waNum?`<a class="wa-btn" href="https://wa.me/55${waNum}" target="_blank">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Abrir no WhatsApp
-  </a>`:'';
-  document.getElementById('dpStagePills').innerHTML=Object.entries(STAGES).map(([k,st])=>`<div class="stage-pill s-${k} ${l.stage===k?'active':''}" onclick="updateStage(${l.id},'${k}')">${st.label}</div>`).join('');
+  </a> <a class="wa-btn" href="tel:+55${waNum}" style="background:rgba(61,126,255,.12);color:var(--accent);border-color:rgba(61,126,255,.3);">Ligar</a>`:'';
+  document.getElementById('dpStagePills').innerHTML=Object.entries(STAGES).map(([k,st])=>`<div class="stage-pill s-${k} ${l.stage===k?'active':''}" onclick="updateStage('${l.id}','${k}')">${st.label}</div>`).join('');
   document.getElementById('detailPanel').classList.add('open');
+  document.body.classList.add('detalhe-aberto');
 }
 async function updateStage(id,stage){
   const{error}=await db.from('leads').update({stage}).eq('id',id);
@@ -2065,7 +2179,7 @@ async function updateStage(id,stage){
   await loadLeads();renderDashboard();renderPipeline();
   if(currentDetailLead?.id==id)openDetail(id);
 }
-function closeDetail(){document.getElementById('detailPanel').classList.remove('open');}
+function closeDetail(){document.getElementById('detailPanel').classList.remove('open');document.body.classList.remove('detalhe-aberto');}
 function editCurrentLead(){if(currentDetailLead){closeDetail();openLeadModal(currentDetailLead);}}
 async function deleteCurrentLead(){
   if(!currentDetailLead||!confirm('Excluir este lead?'))return;
@@ -2162,7 +2276,7 @@ function openNotifPanel(){
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           ${l.phone?`<a href="https://wa.me/55${l.phone.replace(/\D/g,'')}" target="_blank" onclick="event.stopPropagation()" style="background:rgba(37,211,102,.15);border:none;border-radius:6px;padding:3px 8px;font-size:11px;color:#25d366;text-decoration:none;white-space:nowrap;">WhatsApp</a>`:''}
-          <button onclick="clearReminderById(${l.id})" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--red);cursor:pointer;white-space:nowrap;">Dispensar</button>
+          <button onclick="clearReminderById('${l.id}')" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--red);cursor:pointer;white-space:nowrap;">Dispensar</button>
         </div>
       </div>
     </div>

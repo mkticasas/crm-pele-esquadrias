@@ -18,6 +18,10 @@ create table if not exists public.produtos (
   created_at timestamptz not null default now()
 );
 
+alter table public.produtos add column if not exists tipo text not null default 'medida';  -- pronta | medida
+alter table public.produtos add column if not exists cores text;
+alter table public.produtos add column if not exists tamanhos jsonb;   -- linha pronta: [{"l":900,"a":2100,"preco":1475}] (mm)
+
 -- 2) Orçamentos ---------------------------------------------------------
 create table if not exists public.orcamentos (
   id                    uuid primary key default gen_random_uuid(),
@@ -84,12 +88,15 @@ create policy "membros orcamento_itens" on public.orcamento_itens for all to aut
   using (public.crm_eh_membro()) with check (public.crm_eh_membro());
 
 -- 5) Catálogo público para o site (sem preços) --------------------------
+drop function if exists public.catalogo_publico();
 create or replace function public.catalogo_publico()
-returns table (id uuid, categoria text, modelo text, descricao text, foto_url text, ordem integer)
+returns table (id uuid, tipo text, categoria text, modelo text, descricao text, foto_url text, cores text, tamanhos jsonb, ordem integer)
 language sql stable security definer set search_path = public
 as $$
-  select id, categoria, modelo, descricao, foto_url, ordem
-  from public.produtos where ativo order by categoria, ordem, modelo;
+  select id, tipo, categoria, modelo, descricao, foto_url, cores,
+         (select jsonb_agg(jsonb_build_object('l', t->'l', 'a', t->'a')) from jsonb_array_elements(coalesce(p.tamanhos,'[]'::jsonb)) t),
+         ordem
+  from public.produtos p where ativo order by tipo, categoria, ordem, modelo;
 $$;
 revoke all on function public.catalogo_publico() from public;
 grant execute on function public.catalogo_publico() to anon, authenticated;
@@ -162,18 +169,51 @@ do $$ begin
   alter publication supabase_realtime add table public.orcamentos;
 exception when duplicate_object then null; end $$;
 
--- 9) Catálogo inicial de exemplo (o Pelé troca pelos modelos dele) ------
-insert into public.produtos (categoria, modelo, ordem)
+-- 9) Linha pronta (catálogo Slim Modular da Pelé, preços do PDF) ------
+insert into public.produtos (tipo, categoria, modelo, cores, foto_url, tamanhos, ordem)
 select * from (values
-  ('Porta de entrada','Ripada',1), ('Porta de entrada','Lisa',2), ('Porta de entrada','Pivotante',3),
-  ('Porta de garagem','Basculante de lambril',1), ('Porta de garagem','De correr de lambril',2),
-  ('Porta de correr','2 folhas',1), ('Porta de correr','4 folhas',2), ('Porta de correr','5 folhas (gourmet)',3),
-  ('Janela','De correr 2 folhas',1), ('Janela','Maxim-ar (banheiro)',2), ('Janela','Veneziana (quarto)',3),
-  ('Box','Frontal de correr',1), ('Box','De canto',2),
-  ('Fachada','Vidro incolor',1), ('Fachada','Vidro espelhado',2), ('Fachada','Pele de vidro',3)
-) v(categoria, modelo, ordem)
-where not exists (select 1 from public.produtos);
+  ('pronta','Porta de giro','Lambril com puxador','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-02.jpg','[{"l": 900, "a": 2100, "preco": 1475}, {"l": 1000, "a": 2100, "preco": 1660}]'::jsonb,1),
+  ('pronta','Veneziana','3 folhas com grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-03.jpg','[{"l": 1000, "a": 1000, "preco": 640}, {"l": 1200, "a": 1000, "preco": 720}, {"l": 1500, "a": 1000, "preco": 810}]'::jsonb,2),
+  ('pronta','Porta de correr','2 folhas móveis com persiana integrada automatizada','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-04.jpg','[{"l": 1600, "a": 2200, "preco": 4585}, {"l": 2000, "a": 2200, "preco": 5160}]'::jsonb,3),
+  ('pronta','Janela com persiana','2 folhas móveis com persiana integrada manual','Apenas preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-05.jpg','[{"l": 1200, "a": 1200, "preco": 1835}, {"l": 1500, "a": 1200, "preco": 2065}]'::jsonb,4),
+  ('pronta','Maxim-ar','Com grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-06.jpg','[{"l": 500, "a": 500, "preco": 260}, {"l": 600, "a": 600, "preco": 305}, {"l": 800, "a": 600, "preco": 273}]'::jsonb,5),
+  ('pronta','Janela de correr','2 folhas sem grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-07.jpg','[{"l": 1000, "a": 1000, "preco": 324}, {"l": 1200, "a": 1000, "preco": 353}, {"l": 1500, "a": 1000, "preco": 405}]'::jsonb,6),
+  ('pronta','Maxim-ar','Sem grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-08.jpg','[{"l": 500, "a": 500, "preco": 231}, {"l": 600, "a": 600, "preco": 268}, {"l": 800, "a": 600, "preco": 305}]'::jsonb,7),
+  ('pronta','Veneziana','6 folhas com grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-09.jpg','[{"l": 1200, "a": 1000, "preco": 880}, {"l": 1500, "a": 1000, "preco": 985}]'::jsonb,8),
+  ('pronta','Veneziana','3 folhas sem grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-10.jpg','[{"l": 1000, "a": 1000, "preco": 580}, {"l": 1200, "a": 1000, "preco": 650}, {"l": 1500, "a": 1000, "preco": 735}]'::jsonb,9),
+  ('pronta','Veneziana','6 folhas sem grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-11.jpg','[{"l": 1200, "a": 1000, "preco": 805}, {"l": 1500, "a": 1000, "preco": 900}]'::jsonb,10),
+  ('pronta','Porta balcão','3 folhas móveis com veneziana','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-12.jpg','[{"l": 1600, "a": 2100, "preco": 2530}]'::jsonb,11),
+  ('pronta','Porta de correr','3 folhas móveis · vidro temperado','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-13.jpg','[{"l": 1600, "a": 2100, "preco": 1955}, {"l": 2000, "a": 2100, "preco": 2335}]'::jsonb,12),
+  ('pronta','Porta de giro','Postigo','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-14.jpg','[{"l": 800, "a": 2100, "preco": 965}, {"l": 900, "a": 2100, "preco": 1080}]'::jsonb,13),
+  ('pronta','Alçapão','Slim alumínio','Apenas preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-15.jpg','[{"l": 600, "a": 800, "preco": 268}]'::jsonb,14),
+  ('pronta','Janela de correr','4 folhas sem grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-16.jpg','[{"l": 1200, "a": 1000, "preco": 460}, {"l": 1500, "a": 1000, "preco": 510}]'::jsonb,15),
+  ('pronta','Porta de giro','Lambril','Preto (branco só em 80 e 90 cm)','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-17.jpg','[{"l": 700, "a": 2100, "preco": 1185}, {"l": 800, "a": 2100, "preco": 1305}, {"l": 900, "a": 2100, "preco": 1425}, {"l": 1000, "a": 2100, "preco": 1570}]'::jsonb,16),
+  ('pronta','Porta pivotante','Sem guarnição','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-18.jpg','[{"l": 1050, "a": 2150, "preco": 3310}, {"l": 1150, "a": 2150, "preco": 3500}, {"l": 1250, "a": 2150, "preco": 3685}, {"l": 1086, "a": 2177, "preco": 3680}, {"l": 1186, "a": 2177, "preco": 3890}, {"l": 1286, "a": 2177, "preco": 4085}]'::jsonb,17),
+  ('pronta','Veneziana','3 folhas móveis (linha 25)','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-19.jpg','[{"l": 1500, "a": 1000, "preco": 1325}, {"l": 2000, "a": 1000, "preco": 1555}]'::jsonb,18),
+  ('pronta','Porta de correr','2 folhas móveis · vidro temperado','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-20.jpg','[{"l": 1600, "a": 2100, "preco": 1750}]'::jsonb,19),
+  ('pronta','Porta de giro','Lambril com puxador e friso','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-21.jpg','[{"l": 900, "a": 2100, "preco": 1630}, {"l": 1000, "a": 2100, "preco": 1760}]'::jsonb,20),
+  ('pronta','Porta pivotante','Com friso, sem guarnição','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-22.jpg','[{"l": 1050, "a": 2150, "preco": 3525}, {"l": 1150, "a": 2150, "preco": 3740}, {"l": 1250, "a": 2150, "preco": 3952}, {"l": 1086, "a": 2177, "preco": 3910}, {"l": 1186, "a": 2177, "preco": 4130}, {"l": 1286, "a": 2177, "preco": 4355}]'::jsonb,21),
+  ('pronta','Porta de giro','Palheta total','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-23.jpg','[{"l": 600, "a": 2100, "preco": 690}, {"l": 700, "a": 2100, "preco": 730}, {"l": 800, "a": 2100, "preco": 810}, {"l": 900, "a": 2100, "preco": 870}]'::jsonb,22),
+  ('pronta','Janela de correr','2 folhas com grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-24.jpg','[{"l": 1000, "a": 1000, "preco": 420}, {"l": 1200, "a": 1000, "preco": 470}, {"l": 1500, "a": 1000, "preco": 535}]'::jsonb,23),
+  ('pronta','Porta de correr','4 folhas · vidro temperado','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-25.jpg','[{"l": 2000, "a": 2100, "preco": 2105}]'::jsonb,24),
+  ('pronta','Janela de correr','2 folhas móveis (linha 25)','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-26.jpg','[{"l": 1000, "a": 1000, "preco": 790}, {"l": 1500, "a": 1000, "preco": 895}]'::jsonb,25),
+  ('pronta','Janela de correr','4 folhas com grade','Branco e preto','https://mkticasas.github.io/crm-pele-esquadrias/assets/catalogo/linha-pronta-27.jpg','[{"l": 1200, "a": 1000, "preco": 575}, {"l": 1500, "a": 1000, "preco": 650}]'::jsonb,26)
+) v(tipo, categoria, modelo, cores, foto_url, tamanhos, ordem)
+where not exists (select 1 from public.produtos where tipo = 'pronta');
+
+-- 10) Sob medida (cobrado por m² — o Pelé coloca preço, foto e ajusta a lista) --
+insert into public.produtos (tipo, categoria, modelo, ordem)
+select * from (values
+  ('medida','Porta de entrada','Ripada',1), ('medida','Porta de entrada','Lisa',2), ('medida','Porta de entrada','Pivotante',3),
+  ('medida','Porta de garagem','Basculante de lambril',1), ('medida','Porta de garagem','De correr de lambril',2),
+  ('medida','Porta de correr','Gourmet (4 ou 5 folhas)',1),
+  ('medida','Janela','De correr',1), ('medida','Janela','Maxim-ar',2), ('medida','Janela','Veneziana',3),
+  ('medida','Box','Frontal de correr',1), ('medida','Box','De canto',2),
+  ('medida','Fachada','Vidro incolor',1), ('medida','Fachada','Vidro espelhado',2), ('medida','Fachada','Pele de vidro',3)
+) v(tipo, categoria, modelo, ordem)
+where not exists (select 1 from public.produtos where tipo = 'medida');
 
 -- Conferência
-select (select count(*) from public.produtos) as produtos,
+select (select count(*) from public.produtos where tipo='pronta') as linha_pronta,
+       (select count(*) from public.produtos where tipo='medida') as sob_medida,
        (select count(*) from public.orcamentos) as orcamentos;

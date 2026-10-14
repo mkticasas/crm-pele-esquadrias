@@ -451,6 +451,9 @@
   .orc-modal{width:820px!important;}
   body:has(.modal-overlay.open) #fabNewLead{display:none!important;}
   .orc-item-cat{font-size:11px;color:var(--text3);}
+  .orc-grid-pronta{grid-template-columns:3fr 1fr 2fr!important;margin-bottom:0;}
+  .orc-cores{grid-column:1/-1;font-size:12px;color:var(--text3);}
+  .orc-tam select{font-weight:500;}
   .orc-sec{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);font-weight:600;margin:18px 0 10px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;}
   .orc-sec:first-child{margin-top:0;}
   .orc-dica{text-transform:none;letter-spacing:0;font-weight:400;}
@@ -497,9 +500,11 @@
     .orc-lista{grid-template-columns:1fr;}
     .orc-modal{max-height:94vh!important;}
     .orc-item-grid{grid-template-columns:1fr 1fr 1fr;}
-    .orc-item-grid label:nth-child(4){grid-column:span 3;}
-    .orc-item-grid label:nth-child(5){grid-column:span 1;}
-    .orc-item-grid label:nth-child(6){grid-column:span 2;}
+    .orc-grid-pronta{grid-template-columns:1fr 1fr!important;}
+    .orc-grid-pronta .orc-tam{grid-column:1/-1!important;}
+    .orc-item-grid:not(.orc-grid-pronta) label:nth-child(4){grid-column:span 3;}
+    .orc-item-grid:not(.orc-grid-pronta) label:nth-child(5){grid-column:span 1;}
+    .orc-item-grid:not(.orc-grid-pronta) label:nth-child(6){grid-column:span 2;}
     .orc-footer .btn{flex:1;justify-content:center;}
     .orc-footer #orcBtnExcluir{flex:0 0 auto;}
     .orc-footer>div{display:none;}
@@ -1471,7 +1476,12 @@ function setupSupportRealtime(){
         <div class="form-group"><label>Categoria *</label><input type="text" id="pr-cat" list="prCats" placeholder="Ex.: Porta de entrada"><datalist id="prCats"></datalist></div>
         <div class="form-group"><label>Modelo *</label><input type="text" id="pr-modelo" placeholder="Ex.: Ripada"></div>
       </div>
+      <div class="form-row">
+        <div class="form-group"><label>Tipo</label><select id="pr-tipo" onchange="prodTipoUI()"><option value="medida">Sob medida (por m²)</option><option value="pronta">Linha pronta (tamanhos fixos)</option></select></div>
+        <div class="form-group"><label>Cores</label><input type="text" id="pr-cores" placeholder="Branco e preto"></div>
+      </div>
       <div class="form-group"><label>Descrição (aparece no site)</label><input type="text" id="pr-desc"></div>
+      <div class="form-group" id="pr-tam-wrap"><label>Tamanhos e preços — um por linha: largura x altura (mm) = preço</label><textarea id="pr-tam" rows="5" placeholder="900 x 2100 = 1475&#10;1000 x 2100 = 1660"></textarea></div>
       <div class="form-row">
         <div class="form-group"><label>Preço por m² (R$)</label><input type="text" inputmode="decimal" id="pr-m2"></div>
         <div class="form-group"><label>Preço por unidade (R$)</label><input type="text" inputmode="decimal" id="pr-un"></div>
@@ -2951,6 +2961,11 @@ const orcMed=v=>(v===null||v===undefined||v==='')?'':String(v).replace('.',',');
 const orcEsc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const orcCod=n=>'#'+String(n||0).padStart(4,'0');
 
+function prodDe(it){return it&&it.produto_id?prodTodos.find(x=>x.id===it.produto_id):null;}
+function prodPronto(p){return p&&p.tipo==='pronta'&&Array.isArray(p.tamanhos)&&p.tamanhos.length;}
+function tamTxt(t){return t.l+' × '+t.a+' mm';}
+function tamIdx(p,it){if(!prodPronto(p))return -1;const L=Math.round(orcNum(it.largura)*1000),A=Math.round(orcNum(it.altura)*1000);return p.tamanhos.findIndex(t=>t.l===L&&t.a===A);}
+function aplicaTam(it,p,i){const t=p.tamanhos[i];it.largura=t.l/1000;it.altura=t.a/1000;it.modo_preco='un';it.preco=t.preco;it._sob=false;}
 function orcSubItem(it){
   const p=orcNum(it.preco), q=Math.max(1,parseInt(it.quantidade)||1);
   if(it.modo_preco==='un')return p*q;
@@ -3004,7 +3019,7 @@ async function prodCarregar(){
   prodTodos=data||[];
 }
 function prodOptions(sel){
-  const cats={};prodTodos.filter(p=>p.ativo||p.id===sel).forEach(p=>(cats[p.categoria]=cats[p.categoria]||[]).push(p));
+  const cats={};prodTodos.filter(p=>p.ativo||p.id===sel).forEach(p=>{const g=(p.tipo==='pronta'?'Linha pronta · ':'Sob medida · ')+p.categoria;(cats[g]=cats[g]||[]).push(p);});
   return '<option value="">Escolher do catálogo…</option>'+Object.entries(cats).map(([c,ps])=>`<optgroup label="${orcEsc(c)}">${ps.map(p=>`<option value="${p.id}" ${p.id===sel?'selected':''}>${orcEsc(p.modelo)}</option>`).join('')}</optgroup>`).join('')+'<option value="__livre">Outro (digitar)</option>';
 }
 
@@ -3030,7 +3045,8 @@ async function orcAbrir(id){
   orcItensTmp=(its||[]).map(it=>{
     // pedido do site chega sem preço: sugere o preço do catálogo
     if((it.preco===null||it.preco===undefined)&&it.produto_id){const p=prodTodos.find(x=>x.id===it.produto_id);
-      if(p){if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
+      if(p){if(prodPronto(p)){const k=tamIdx(p,it);if(k>=0)aplicaTam(it,p,k);else{it._sob=true;it.modo_preco='m2';it.preco=p.preco_m2||null;}}
+        else if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
     return it;});
   orcPreencherForm();
 }
@@ -3056,9 +3072,14 @@ function orcSetItem(i,campo,val){
     if(val==='__livre'){it.produto_id=null;it._livre=true;}
     else{const p=prodTodos.find(x=>x.id===val);it.produto_id=p?p.id:null;it._livre=false;
       if(p){it.categoria=p.categoria;it.modelo=p.modelo;it.foto_url=p.foto_url;
-        if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
+        if(prodPronto(p)){const k=tamIdx(p,it);aplicaTam(it,p,k>=0?k:0);}
+        else if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
     orcRenderItens();return;
   }
+  if(campo==='tamanho'){const p=prodDe(it);
+    if(val==='outra'){it._sob=true;it.modo_preco='m2';it.preco=p&&p.preco_m2?p.preco_m2:null;}
+    else if(p)aplicaTam(it,p,parseInt(val));
+    orcRenderItens();return;}
   it[campo]=val;
   if(campo==='modo_preco'){orcRenderItens();return;}
   const el=document.getElementById('orcSub'+i);if(el)el.textContent=orcBRL(orcSubItem(it));
@@ -3079,7 +3100,16 @@ function orcRenderItens(){
         </div>
         <button class="orc-del" onclick="orcDelItem(${i})" title="Remover item">×</button>
       </div>
-      <div class="orc-item-grid">
+      ${(()=>{const p=prodDe(it);const k=tamIdx(p,it);
+        if(prodPronto(p)&&!it._sob&&!(k<0&&it.largura&&it._medidaLivre)){
+          return `<div class="orc-item-grid orc-grid-pronta">
+          <label class="orc-tam">Tamanho (linha pronta)<select onchange="orcSetItem(${i},'tamanho',this.value)">${p.tamanhos.map((t,j)=>`<option value="${j}" ${j===k?'selected':''}>${tamTxt(t)} · ${orcBRL(t.preco)}</option>`).join('')}${k<0?'<option selected disabled>Medida pedida: '+orcMed(it.largura)+' × '+orcMed(it.altura)+' m</option>':''}<option value="outra">Outra medida (sob medida)…</option></select></label>
+          <label>Qtd<input type="number" min="1" value="${it.quantidade||1}" oninput="orcSetItem(${i},'quantidade',this.value)"></label>
+          <label>Preço da unidade (R$)<input type="text" inputmode="decimal" value="${it.preco!==null&&it.preco!==undefined?orcMed(it.preco):''}" oninput="orcSetItem(${i},'preco',this.value)"></label>
+          ${p.cores?`<div class="orc-cores">Cores: ${orcEsc(p.cores)}</div>`:''}
+          </div>`;}
+        return '';})()}
+      <div class="orc-item-grid" style="${(()=>{const p=prodDe(it);return prodPronto(p)&&!it._sob?'display:none':'';})()}">
         <label>Largura (m)<input type="text" inputmode="decimal" value="${orcMed(it.largura)}" oninput="orcSetItem(${i},'largura',this.value)"></label>
         <label>Altura (m)<input type="text" inputmode="decimal" value="${orcMed(it.altura)}" oninput="orcSetItem(${i},'altura',this.value)"></label>
         <label>Qtd<input type="number" min="1" value="${it.quantidade||1}" oninput="orcSetItem(${i},'quantidade',this.value)"></label>
@@ -3176,7 +3206,7 @@ async function orcGerarPDF(){
     styles:{fontSize:9,cellPadding:2.5,valign:'middle',textColor:30,lineColor:220},
     headStyles:{fillColor:[8,34,61],textColor:255,fontStyle:'bold'},
     columnStyles:{0:{cellWidth:18,minCellHeight:16},2:{cellWidth:32},3:{cellWidth:12,halign:'center'},4:{cellWidth:30,halign:'right'}},
-    didDrawCell:d=>{if(d.section==='body'&&d.column.index===0&&fotos[d.row.index]){try{doc.addImage(fotos[d.row.index],'JPEG',d.cell.x+1.5,d.cell.y+1.5,15,13);}catch(e){}}}
+    didDrawCell:d=>{if(d.section==='body'&&d.column.index===0&&fotos[d.row.index]){try{const f=fotos[d.row.index],pr=doc.getImageProperties(f),mw=15,mh=13,r=Math.min(mw/pr.width,mh/pr.height),w=pr.width*r,hh=pr.height*r;doc.addImage(f,pr.fileType||'JPEG',d.cell.x+1.5+(mw-w)/2,d.cell.y+1.5+(mh-hh)/2,w,hh);}catch(e){}}}
   });
   y=doc.lastAutoTable.finalY+6;
   const linha=(rot,val,neg)=>{doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(60);doc.text(rot,W-M-60,y);doc.text((neg?'- ':'')+orcBRL(val),W-M,y,{align:'right'});y+=6;};
@@ -3226,18 +3256,20 @@ async function loadProdutos(){
   await prodCarregar();
   const el=document.getElementById('prodLista');
   if(!prodTodos.length){el.innerHTML='<div class="empty-state"><p>Nenhum produto. Rode o orcamentos.sql ou toque em "+ Produto".</p></div>';return;}
-  const cats={};prodTodos.forEach(p=>(cats[p.categoria]=cats[p.categoria]||[]).push(p));
+  const cats={};prodTodos.forEach(p=>{const g=(p.tipo==='pronta'?'Linha pronta · ':'Sob medida · ')+p.categoria;(cats[g]=cats[g]||[]).push(p);});
   el.innerHTML=Object.entries(cats).map(([c,ps])=>`<div class="prod-cat">${orcEsc(c)}</div><div class="prod-grid">${ps.map(p=>`
     <div class="prod-card ${p.ativo?'':'off'}" onclick="prodAbrir('${p.id}')">
       ${p.foto_url?`<img src="${orcEsc(p.foto_url)}" alt="">`:'<div class="prod-sem">sem foto</div>'}
       <div class="prod-nome">${orcEsc(p.modelo)}</div>
-      <div class="prod-preco">${p.preco_m2?orcBRL(p.preco_m2)+'/m²':p.preco_un?orcBRL(p.preco_un)+'/un':'sem preço'}</div>
+      <div class="prod-preco">${prodPronto(p)?p.tamanhos.length+' tamanho'+(p.tamanhos.length>1?'s':'')+' · a partir de '+orcBRL(Math.min(...p.tamanhos.map(t=>t.preco))):p.preco_m2?orcBRL(p.preco_m2)+'/m²':p.preco_un?orcBRL(p.preco_un)+'/un':'sem preço'}</div>
     </div>`).join('')}</div>`).join('');
 }
 function prodAbrir(id){
   const p=id?prodTodos.find(x=>x.id===id):{ativo:true};
   const v=(k,x)=>document.getElementById(k).value=(x??'');
   v('pr-id',p.id);v('pr-cat',p.categoria);v('pr-modelo',p.modelo);v('pr-desc',p.descricao);
+  v('pr-tipo',p.tipo||'medida');v('pr-cores',p.cores);
+  v('pr-tam',(p.tamanhos||[]).map(t=>t.l+' x '+t.a+' = '+String(t.preco).replace('.',',')).join('\n'));prodTipoUI();
   v('pr-m2',p.preco_m2?orcMed(p.preco_m2):'');v('pr-un',p.preco_un?orcMed(p.preco_un):'');
   document.getElementById('pr-ativo').checked=p.ativo!==false;
   document.getElementById('pr-foto').value='';
@@ -3247,10 +3279,13 @@ function prodAbrir(id){
   document.getElementById('prBtnExcluir').style.display=p.id?'':'none';
   document.getElementById('prodModal').classList.add('open');
 }
+function prodTipoUI(){const pr=document.getElementById('pr-tipo').value==='pronta';document.getElementById('pr-tam-wrap').style.display=pr?'':'none';}
+function prodLerTam(txt){return txt.split('\n').map(s=>s.trim()).filter(Boolean).map(s=>{const m=s.match(/(\d+)\s*[x×X]\s*(\d+)\s*=?\s*(?:R\$)?\s*([\d.,]+)/);return m?{l:parseInt(m[1]),a:parseInt(m[2]),preco:orcNum(m[3])}:null;}).filter(Boolean);}
 function prodPrevia(inp){const f=inp.files&&inp.files[0];if(!f)return;const img=document.getElementById('pr-foto-prev');img.src=URL.createObjectURL(f);img.style.display='block';}
 async function prodSalvar(){
   const g=k=>document.getElementById(k).value.trim();
-  const d={categoria:g('pr-cat'),modelo:g('pr-modelo'),descricao:g('pr-desc')||null,preco_m2:g('pr-m2')?orcNum(g('pr-m2')):null,preco_un:g('pr-un')?orcNum(g('pr-un')):null,ativo:document.getElementById('pr-ativo').checked};
+  const tipo=document.getElementById('pr-tipo').value;
+  const d={tipo,cores:g('pr-cores')||null,tamanhos:tipo==='pronta'?prodLerTam(document.getElementById('pr-tam').value):null,categoria:g('pr-cat'),modelo:g('pr-modelo'),descricao:g('pr-desc')||null,preco_m2:g('pr-m2')?orcNum(g('pr-m2')):null,preco_un:g('pr-un')?orcNum(g('pr-un')):null,ativo:document.getElementById('pr-ativo').checked};
   if(!d.categoria||!d.modelo){showToast('Categoria e modelo são obrigatórios.','error');return;}
   const btn=document.getElementById('prBtnSalvar');btn.disabled=true;
   const f=document.getElementById('pr-foto').files[0];

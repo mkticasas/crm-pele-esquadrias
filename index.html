@@ -426,6 +426,86 @@
     body.detalhe-aberto #fabNewLead{display:none!important;}
   }
 
+  /* ── ORÇAMENTOS ─────────────────────────────────────── */
+  .orc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .orc-h1{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;}
+  .orc-sub{font-size:12px;color:var(--text3);margin-top:3px;}
+  .orc-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;}
+  .orc-chips::-webkit-scrollbar{display:none;}
+  .orc-chip{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--border);font-size:13px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .orc-chip .dot{width:8px;height:8px;border-radius:50%;}
+  .orc-chip b{color:var(--text);font-weight:600;}
+  .orc-chip.on{border-color:var(--accent);color:var(--text);background:rgba(61,126,255,.12);}
+  .orc-busca{width:100%;max-width:360px;margin-bottom:14px;}
+  .orc-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;}
+  .orc-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;cursor:pointer;transition:border-color .15s;}
+  .orc-card:hover{border-color:var(--border2);}
+  .orc-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .orc-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);}
+  .orc-st{font-size:11px;font-weight:600;border:1px solid;border-radius:999px;padding:2px 9px;}
+  .orc-card-nome{font-size:15px;font-weight:600;margin-bottom:4px;}
+  .orc-card-meta{font-size:12px;color:var(--text3);display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .orc-site{background:rgba(245,158,11,.15);color:#f59e0b;border-radius:6px;padding:1px 6px;font-size:11px;}
+  .orc-card-total{margin-top:10px;font-size:16px;font-weight:700;color:var(--green,#22c55e);}
+  .orc-pend{font-size:13px;font-weight:500;color:#f59e0b;}
+  .orc-modal{width:820px!important;}
+  body:has(.modal-overlay.open) #fabNewLead{display:none!important;}
+  .orc-item-cat{font-size:11px;color:var(--text3);}
+  .orc-sec{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);font-weight:600;margin:18px 0 10px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;}
+  .orc-sec:first-child{margin-top:0;}
+  .orc-dica{text-transform:none;letter-spacing:0;font-weight:400;}
+  .orc-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px;}
+  .orc-item-top{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+  .orc-foto{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--bg2);}
+  .orc-foto-vazia{display:flex;align-items:center;justify-content:center;color:var(--text3);font-weight:600;border:1px dashed var(--border2);}
+  .orc-item-sel{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;}
+  .orc-item-sel select{width:100%;}
+  .orc-livre{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .orc-del{background:none;border:1px solid var(--border2);color:var(--text3);border-radius:8px;width:34px;height:34px;font-size:18px;cursor:pointer;flex-shrink:0;}
+  .orc-del:hover{color:#ef4444;border-color:#ef4444;}
+  .orc-item-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
+  .orc-item-grid label{font-size:11px;color:var(--text3);display:flex;flex-direction:column;gap:4px;}
+  .orc-item-grid input,.orc-item-grid select{width:100%;}
+  .orc-item-obs{font-size:12px;color:#f59e0b;margin-top:8px;}
+  .orc-item-sub{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:12px;color:var(--text3);}
+  .orc-item-sub b{font-size:14px;color:var(--text);}
+  .orc-vazio{padding:18px;text-align:center;color:var(--text3);border:1px dashed var(--border2);border-radius:var(--radius);font-size:13px;}
+  .orc-add{width:100%;justify-content:center;}
+  .orc-tot{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;}
+  .orc-tot-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;font-size:13px;color:var(--text2);}
+  .orc-tot-edit input{width:130px;text-align:right;}
+  .orc-mini{width:auto!important;padding:2px 22px 2px 6px!important;margin-left:6px;font-size:12px!important;height:auto!important;}
+  .orc-total{border-top:1px solid var(--border2);margin-top:6px;padding-top:10px;font-size:15px;color:var(--text);}
+  .orc-total b{font-size:20px;color:var(--green,#22c55e);}
+  .orc-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);margin-top:10px;cursor:pointer;}
+  .orc-check input{width:auto;}
+  .orc-footer{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .orc-wa{background:rgba(37,211,102,.12)!important;color:#25d366!important;border-color:rgba(37,211,102,.3)!important;}
+  .prod-cat{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;margin:18px 0 10px;}
+  .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+  .prod-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;}
+  .prod-card.off{opacity:.45;}
+  .prod-card img,.prod-sem{width:100%;height:110px;object-fit:cover;display:flex;align-items:center;justify-content:center;background:var(--bg3);color:var(--text3);font-size:12px;}
+  .prod-nome{padding:8px 10px 2px;font-size:13px;font-weight:600;}
+  .prod-preco{padding:0 10px 10px;font-size:12px;color:var(--text3);}
+  .pr-foto-wrap{display:flex;gap:10px;align-items:center;}
+  .pr-foto-wrap img{width:72px;height:72px;object-fit:cover;border-radius:8px;display:none;}
+  @media(max-width:640px){
+    .orc-top{flex-direction:column;}
+    .orc-top .btn{width:100%;justify-content:center;}
+    .orc-busca{max-width:none;}
+    .orc-lista{grid-template-columns:1fr;}
+    .orc-modal{max-height:94vh!important;}
+    .orc-item-grid{grid-template-columns:1fr 1fr 1fr;}
+    .orc-item-grid label:nth-child(4){grid-column:span 3;}
+    .orc-item-grid label:nth-child(5){grid-column:span 1;}
+    .orc-item-grid label:nth-child(6){grid-column:span 2;}
+    .orc-footer .btn{flex:1;justify-content:center;}
+    .orc-footer #orcBtnExcluir{flex:0 0 auto;}
+    .orc-footer>div{display:none;}
+    .prod-grid{grid-template-columns:1fr 1fr;}
+  }
+
   .toggle-on{background:var(--accent)!important;border-color:var(--accent)!important;}
   .toggle-thumb-on{left:21px!important;background:#fff!important;}
   @keyframes bellShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
@@ -583,10 +663,16 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
     <div class="drawer-item" id="ditem-pipeline" onclick="navTo('pipeline')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="5" width="4" height="16" rx="1"/></svg>Pipeline
     </div>
+    <div class="drawer-item" id="ditem-orcamentos" onclick="navTo('orcamentos')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13h6M9 17h4M12 9h1"/></svg>Orçamentos
+    </div>
     <div class="drawer-item" id="ditem-reports" onclick="navTo('reports')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Relatórios
     </div>
     <div class="drawer-label" id="dlabel-admin">Configurações</div>
+    <div class="drawer-item" id="ditem-catalogo" onclick="navTo('catalogo')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Catálogo
+    </div>
     <div class="drawer-item" id="ditem-sellers" onclick="navTo('sellers')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Vendedores
     </div>
@@ -689,6 +775,32 @@ window.__masterCheckPromise = (async function masterAccessCheck(){
       </div>
       <div class="leads-cards" id="leadsCards"></div>
     </div>
+  </div>
+
+  <!-- ORÇAMENTOS -->
+  <div class="page" id="page-orcamentos">
+    <div class="orc-top">
+      <div>
+        <div class="orc-h1">Orçamentos</div>
+        <div class="orc-sub">Pedidos do site chegam aqui como "Aguardando valores".</div>
+      </div>
+      <button class="btn btn-primary" onclick="orcNovo()">+ Novo orçamento</button>
+    </div>
+    <div class="orc-chips" id="orcChips"></div>
+    <input type="text" id="orcBusca" class="orc-busca" placeholder="Buscar cliente ou nº..." oninput="orcRenderLista()">
+    <div class="orc-lista" id="orcLista"><div class="loading">Carregando...</div></div>
+  </div>
+
+  <!-- CATÁLOGO -->
+  <div class="page" id="page-catalogo">
+    <div class="orc-top">
+      <div>
+        <div class="orc-h1">Catálogo</div>
+        <div class="orc-sub">Produtos que aparecem no orçamento e no site. Preço não aparece no site.</div>
+      </div>
+      <button class="btn btn-primary" onclick="prodAbrir()">+ Produto</button>
+    </div>
+    <div id="prodLista"><div class="loading">Carregando...</div></div>
   </div>
 
   <!-- PIPELINE -->
@@ -1268,6 +1380,116 @@ function setupSupportRealtime(){
   </div>
 </div>
 
+<!-- EDITOR DE ORÇAMENTO -->
+<div class="modal-overlay" id="orcModal">
+  <div class="modal orc-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="orcTitulo">Novo orçamento</div>
+      <button class="modal-close" onclick="orcFechar()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="orc-sec">Cliente</div>
+      <div class="form-row">
+        <div class="form-group"><label>Nome *</label><input type="text" id="o-nome"></div>
+        <div class="form-group"><label>WhatsApp</label><input type="tel" id="o-tel" placeholder="(17) 99999-9999"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Cidade / bairro da obra</label><input type="text" id="o-cidade"></div>
+        <div class="form-group"><label>Etapa da obra</label>
+          <select id="o-etapa">
+            <option value="">—</option>
+            <option>Ainda não comecei (projeto / pré-obra)</option>
+            <option>Começando (fundação / estrutura)</option>
+            <option>Em andamento (alvenaria / reboco)</option>
+            <option>Acabamento (pronta pra esquadria)</option>
+            <option>Obra pronta / reforma</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Lead vinculado</label><select id="o-lead"><option value="">— sem lead —</option></select></div>
+        <div class="form-group"><label>Status</label>
+          <select id="o-status">
+            <option value="aguardando">Aguardando valores</option>
+            <option value="rascunho">Rascunho</option>
+            <option value="enviado">Enviado ao cliente</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="recusado">Recusado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="orc-sec">Itens <span class="orc-dica">medidas em metros (ex.: 1,20 × 2,40)</span></div>
+      <div id="orcItens"></div>
+      <button class="btn btn-ghost orc-add" onclick="orcAddItem()">+ Adicionar item</button>
+
+      <div class="orc-sec">Valores</div>
+      <div class="orc-tot">
+        <div class="orc-tot-row"><span>Subtotal dos itens</span><b id="o-subtotal">R$ 0,00</b></div>
+        <div class="orc-tot-row orc-tot-edit">
+          <span>Ajuste de aproveitamento de material</span>
+          <input type="text" inputmode="decimal" id="o-ajuste" placeholder="0,00" oninput="orcCalc()">
+        </div>
+        <div class="form-group" style="margin:4px 0 10px;"><input type="text" id="o-ajuste-obs" placeholder="Motivo do ajuste (opcional) — ex.: pedido com poucos itens aproveita menos as barras"></div>
+        <div class="orc-tot-row orc-tot-edit">
+          <span>Desconto
+            <select id="o-desc-tipo" onchange="orcCalc()" class="orc-mini"><option value="valor">R$</option><option value="pct">%</option></select>
+          </span>
+          <input type="text" inputmode="decimal" id="o-desconto" placeholder="0" oninput="orcCalc()">
+        </div>
+        <div class="orc-tot-row orc-total"><span>Total</span><b id="o-total">R$ 0,00</b></div>
+      </div>
+      <label class="orc-check"><input type="checkbox" id="o-mostrar-item" checked> Mostrar valor de cada item no PDF</label>
+
+      <div class="orc-sec">Condições</div>
+      <div class="form-row">
+        <div class="form-group"><label>Pagamento</label><input type="text" id="o-pagto" placeholder="A combinar"></div>
+        <div class="form-group"><label>Prazo de entrega</label><input type="text" id="o-prazo" placeholder="Ex.: 30 dias após a medição final"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Validade (dias)</label><input type="number" id="o-validade" value="15" min="1"></div>
+        <div class="form-group"><label>Observações</label><input type="text" id="o-obs"></div>
+      </div>
+    </div>
+    <div class="modal-footer orc-footer">
+      <button class="btn btn-danger btn-sm" id="orcBtnExcluir" onclick="orcExcluir()">Excluir</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" onclick="orcPDF()">PDF</button>
+      <button class="btn btn-ghost orc-wa" onclick="orcCompartilhar()">Enviar</button>
+      <button class="btn btn-primary" onclick="orcSalvar()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUTO DO CATÁLOGO -->
+<div class="modal-overlay" id="prodModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="prodTitulo">Produto</div><button class="modal-close" onclick="closeModal('prodModal')">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="pr-id">
+      <div class="form-row">
+        <div class="form-group"><label>Categoria *</label><input type="text" id="pr-cat" list="prCats" placeholder="Ex.: Porta de entrada"><datalist id="prCats"></datalist></div>
+        <div class="form-group"><label>Modelo *</label><input type="text" id="pr-modelo" placeholder="Ex.: Ripada"></div>
+      </div>
+      <div class="form-group"><label>Descrição (aparece no site)</label><input type="text" id="pr-desc"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Preço por m² (R$)</label><input type="text" inputmode="decimal" id="pr-m2"></div>
+        <div class="form-group"><label>Preço por unidade (R$)</label><input type="text" inputmode="decimal" id="pr-un"></div>
+      </div>
+      <div class="form-group"><label>Foto</label>
+        <div class="pr-foto-wrap"><img id="pr-foto-prev" alt=""><input type="file" accept="image/*" id="pr-foto" onchange="prodPrevia(this)"></div>
+      </div>
+      <label class="orc-check"><input type="checkbox" id="pr-ativo" checked> Ativo (aparece no orçamento e no site)</label>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" id="prBtnExcluir" onclick="prodExcluir()">Excluir</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" onclick="closeModal('prodModal')">Cancelar</button>
+      <button class="btn btn-primary" id="prBtnSalvar" onclick="prodSalvar()">Salvar</button>
+    </div>
+  </div>
+</div>
+
 <!-- DETAIL PANEL -->
 <div class="detail-panel" id="detailPanel">
   <div class="detail-header">
@@ -1298,6 +1520,7 @@ function setupSupportRealtime(){
       <p id="dp-notes" style="font-size:13px;color:var(--text2);line-height:1.6;">—</p>
     </div>
     <div style="display:flex;gap:8px;margin-top:20px;">
+      <button class="btn btn-primary" style="flex:1;" onclick="orcDoLead()">Orçamento</button>
       <button class="btn btn-ghost" style="flex:1;" onclick="editCurrentLead()">Editar</button>
       <button class="btn btn-danger" style="flex:1;" onclick="deleteCurrentLead()">Excluir</button>
     </div>
@@ -2632,12 +2855,14 @@ function showPage(page){
   const clk=document.getElementById('brClock');
   if(clk)clk.style.display=page==='pipeline'?'inline-block':'none';
   const di=document.getElementById('ditem-'+page);if(di)di.classList.add('active');
-  const titles={dashboard:'Dashboard',leads:'Leads',pipeline:'Pipeline',sellers:'Vendedores',reports:'Relatórios',integrations:'Integrações'};
+  const titles={dashboard:'Dashboard',leads:'Leads',pipeline:'Pipeline',sellers:'Vendedores',reports:'Relatórios',integrations:'Integrações',orcamentos:'Orçamentos',catalogo:'Catálogo'};
   document.getElementById('pageTitle').textContent=titles[page]||page;
   if(page==='dashboard')renderDashboard();
   if(page==='pipeline')renderPipeline();
   if(page==='reports')populateSellerDropdowns();
   if(page==='integrations')loadWebhooks();
+  if(page==='orcamentos')loadOrcamentos();
+  if(page==='catalogo')loadProdutos();
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function initials(name){return(name||'?').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
@@ -2665,9 +2890,9 @@ function mobileNavTo(page){
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="5" width="4" height="16" rx="1"/></svg>
       <span>Pipeline</span>
     </div>
-    <div class="mobile-nav-item" id="mnav-reports" onclick="mobileNavTo('reports')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
-      <span>Relatórios</span>
+    <div class="mobile-nav-item" id="mnav-orcamentos" onclick="mobileNavTo('orcamentos')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13h6M9 17h4M12 9h1"/></svg>
+      <span>Orçamentos</span>
     </div>
     <div class="mobile-nav-item" id="mnav-menu" onclick="openDrawer()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -2706,5 +2931,351 @@ function mobileNavTo(page){
 
 <div class="toast" id="toast"></div>
 
+<script>
+// =====================================================================
+// ORÇAMENTOS (iMarcas) — lista, editor, catálogo e PDF
+// =====================================================================
+const ORC_STATUS={
+  aguardando:{n:'Aguardando valores',c:'#f59e0b'},
+  rascunho:{n:'Rascunho',c:'#8a90a0'},
+  enviado:{n:'Enviado',c:'#3d7eff'},
+  aprovado:{n:'Aprovado',c:'#22c55e'},
+  recusado:{n:'Recusado',c:'#ef4444'}
+};
+const ORC_EXPLICA='Quanto mais itens no mesmo pedido, melhor o aproveitamento das barras de alumínio e do vidro. Por isso o valor por item cai quando o pedido é completo, e muda quando itens são retirados.';
+let orcTodos=[], orcFiltro='', orcAtual=null, orcItensTmp=[], prodTodos=[], orcRtOn=false;
+
+const orcNum=v=>{if(v===null||v===undefined||v==='')return 0;const n=parseFloat(String(v).replace(/\s/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.'));return isNaN(n)?0:n;};
+const orcBRL=v=>'R$ '+(Number(v)||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const orcMed=v=>(v===null||v===undefined||v==='')?'':String(v).replace('.',',');
+const orcEsc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const orcCod=n=>'#'+String(n||0).padStart(4,'0');
+
+function orcSubItem(it){
+  const p=orcNum(it.preco), q=Math.max(1,parseInt(it.quantidade)||1);
+  if(it.modo_preco==='un')return p*q;
+  return orcNum(it.largura)*orcNum(it.altura)*q*p;
+}
+function orcTotais(o,itens){
+  const sub=itens.reduce((a,it)=>a+orcSubItem(it),0);
+  const aj=orcNum(o.ajuste_aproveitamento);
+  const d=o.desconto_tipo==='pct'?(sub+aj)*orcNum(o.desconto)/100:orcNum(o.desconto);
+  return {sub,aj,desc:d,total:Math.max(0,sub+aj-d)};
+}
+
+// ---------- LISTA ----------
+async function loadOrcamentos(){
+  const {data,error}=await db.from('orcamentos').select('*').order('created_at',{ascending:false});
+  if(error){document.getElementById('orcLista').innerHTML='<div class="empty-state"><p>Rode o orcamentos.sql no Supabase para ativar esta aba.</p></div>';return;}
+  orcTodos=data||[];
+  orcRenderLista();
+  orcRealtime();
+}
+function orcRealtime(){
+  if(orcRtOn)return; orcRtOn=true;
+  db.channel('orcamentos-rt').on('postgres_changes',{event:'*',schema:'public',table:'orcamentos'},payload=>{
+    if(payload.eventType==='INSERT'&&payload.new&&payload.new.origem==='site')showToast('Novo pedido de orçamento pelo site!','success');
+    loadOrcamentos();
+    if(typeof loadLeads==='function')loadLeads().then(()=>{try{renderPipeline();renderDashboard();}catch(e){}});
+  }).subscribe();
+}
+function orcSetFiltro(f){orcFiltro=f;orcRenderLista();}
+function orcRenderLista(){
+  const cont={};orcTodos.forEach(o=>cont[o.status]=(cont[o.status]||0)+1);
+  document.getElementById('orcChips').innerHTML=
+    `<button class="orc-chip ${orcFiltro===''?'on':''}" onclick="orcSetFiltro('')">Todos <b>${orcTodos.length}</b></button>`+
+    Object.entries(ORC_STATUS).map(([k,s])=>`<button class="orc-chip ${orcFiltro===k?'on':''}" onclick="orcSetFiltro('${k}')"><span class="dot" style="background:${s.c}"></span>${s.n} <b>${cont[k]||0}</b></button>`).join('');
+  const q=(document.getElementById('orcBusca').value||'').toLowerCase().trim();
+  const lista=orcTodos.filter(o=>(!orcFiltro||o.status===orcFiltro)&&(!q||(o.cliente_nome||'').toLowerCase().includes(q)||String(o.numero).includes(q.replace('#',''))||(o.cliente_telefone||'').includes(q)));
+  const el=document.getElementById('orcLista');
+  if(!lista.length){el.innerHTML='<div class="empty-state"><p>Nenhum orçamento aqui ainda.</p></div>';return;}
+  el.innerHTML=lista.map(o=>{const s=ORC_STATUS[o.status]||ORC_STATUS.rascunho;
+    return `<div class="orc-card" onclick="orcAbrir('${o.id}')">
+      <div class="orc-card-top"><span class="orc-num">${orcCod(o.numero)}</span><span class="orc-st" style="color:${s.c};border-color:${s.c}55;background:${s.c}1a">${s.n}</span></div>
+      <div class="orc-card-nome">${orcEsc(o.cliente_nome)}</div>
+      <div class="orc-card-meta">${o.origem==='site'?'<span class="orc-site">pelo site</span>':''}${o.cidade?orcEsc(o.cidade)+' · ':''}${new Date(o.created_at).toLocaleDateString('pt-BR')}</div>
+      <div class="orc-card-total">${o.status==='aguardando'?'<span class="orc-pend">Falta colocar os valores</span>':orcBRL(o.total)}</div>
+    </div>`;}).join('');
+}
+
+// ---------- CATÁLOGO (dados) ----------
+async function prodCarregar(){
+  const {data}=await db.from('produtos').select('*').order('categoria').order('ordem').order('modelo');
+  prodTodos=data||[];
+}
+function prodOptions(sel){
+  const cats={};prodTodos.filter(p=>p.ativo||p.id===sel).forEach(p=>(cats[p.categoria]=cats[p.categoria]||[]).push(p));
+  return '<option value="">Escolher do catálogo…</option>'+Object.entries(cats).map(([c,ps])=>`<optgroup label="${orcEsc(c)}">${ps.map(p=>`<option value="${p.id}" ${p.id===sel?'selected':''}>${orcEsc(p.modelo)}</option>`).join('')}</optgroup>`).join('')+'<option value="__livre">Outro (digitar)</option>';
+}
+
+// ---------- EDITOR ----------
+function orcPreencherLeads(sel){
+  const s=document.getElementById('o-lead');
+  s.innerHTML='<option value="">— sem lead —</option>'+(allLeads||[]).map(l=>`<option value="${l.id}" ${l.id===sel?'selected':''}>${orcEsc(l.name)}${l.phone?' · '+orcEsc(l.phone):''}</option>`).join('');
+}
+async function orcNovo(lead){
+  await prodCarregar();
+  orcAtual={id:null,status:'rascunho',desconto_tipo:'valor',validade_dias:15,mostrar_valor_item:true,lead_id:lead?lead.id:null,
+    cliente_nome:lead?lead.name:'',cliente_telefone:lead?lead.phone:'',cidade:'',etapa_obra:''};
+  orcItensTmp=[];
+  orcPreencherForm();
+  orcAddItem();
+}
+async function orcAbrir(id){
+  await prodCarregar();
+  const {data:o,error}=await db.from('orcamentos').select('*').eq('id',id).single();
+  if(error){showToast('Erro ao abrir: '+error.message,'error');return;}
+  const {data:its}=await db.from('orcamento_itens').select('*').eq('orcamento_id',id).order('ordem');
+  orcAtual=o;
+  orcItensTmp=(its||[]).map(it=>{
+    // pedido do site chega sem preço: sugere o preço do catálogo
+    if((it.preco===null||it.preco===undefined)&&it.produto_id){const p=prodTodos.find(x=>x.id===it.produto_id);
+      if(p){if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
+    return it;});
+  orcPreencherForm();
+}
+function orcPreencherForm(){
+  const o=orcAtual,v=(id,x)=>document.getElementById(id).value=(x??'');
+  document.getElementById('orcTitulo').textContent=o.id?('Orçamento '+orcCod(o.numero)):'Novo orçamento';
+  v('o-nome',o.cliente_nome);v('o-tel',o.cliente_telefone);v('o-cidade',o.cidade);v('o-etapa',o.etapa_obra);
+  orcPreencherLeads(o.lead_id);v('o-status',o.status);
+  v('o-ajuste',o.ajuste_aproveitamento?orcMed(o.ajuste_aproveitamento):'');v('o-ajuste-obs',o.ajuste_obs);
+  v('o-desc-tipo',o.desconto_tipo||'valor');v('o-desconto',o.desconto?orcMed(o.desconto):'');
+  v('o-pagto',o.condicoes_pagamento);v('o-prazo',o.prazo_entrega);v('o-validade',o.validade_dias||15);v('o-obs',o.observacoes);
+  document.getElementById('o-mostrar-item').checked=o.mostrar_valor_item!==false;
+  document.getElementById('orcBtnExcluir').style.display=o.id?'':'none';
+  orcRenderItens();
+  document.getElementById('orcModal').classList.add('open');
+}
+function orcFechar(){document.getElementById('orcModal').classList.remove('open');}
+function orcAddItem(){orcItensTmp.push({quantidade:1,modo_preco:'m2'});orcRenderItens();}
+function orcDelItem(i){orcItensTmp.splice(i,1);orcRenderItens();}
+function orcSetItem(i,campo,val){
+  const it=orcItensTmp[i];
+  if(campo==='produto'){
+    if(val==='__livre'){it.produto_id=null;it._livre=true;}
+    else{const p=prodTodos.find(x=>x.id===val);it.produto_id=p?p.id:null;it._livre=false;
+      if(p){it.categoria=p.categoria;it.modelo=p.modelo;it.foto_url=p.foto_url;
+        if(p.preco_m2){it.modo_preco='m2';it.preco=p.preco_m2;}else if(p.preco_un){it.modo_preco='un';it.preco=p.preco_un;}}}
+    orcRenderItens();return;
+  }
+  it[campo]=val;
+  if(campo==='modo_preco'){orcRenderItens();return;}
+  const el=document.getElementById('orcSub'+i);if(el)el.textContent=orcBRL(orcSubItem(it));
+  orcCalc();
+}
+function orcRenderItens(){
+  const el=document.getElementById('orcItens');
+  if(!orcItensTmp.length){el.innerHTML='<div class="orc-vazio">Nenhum item. Toque em "+ Adicionar item".</div>';orcCalc();return;}
+  el.innerHTML=orcItensTmp.map((it,i)=>{
+    const livre=it._livre||(!it.produto_id&&(it.categoria||it.modelo));
+    return `<div class="orc-item">
+      <div class="orc-item-top">
+        ${it.foto_url?`<img class="orc-foto" src="${orcEsc(it.foto_url)}" alt="">`:`<div class="orc-foto orc-foto-vazia">${i+1}</div>`}
+        <div class="orc-item-sel">
+          ${it.categoria&&!livre?`<div class="orc-item-cat">${orcEsc(it.categoria)}</div>`:''}
+          <select onchange="orcSetItem(${i},'produto',this.value)">${prodOptions(it.produto_id||(livre?'__livre':''))}</select>
+          ${livre?`<div class="orc-livre"><input type="text" placeholder="Categoria" value="${orcEsc(it.categoria)}" oninput="orcSetItem(${i},'categoria',this.value)"><input type="text" placeholder="Modelo" value="${orcEsc(it.modelo)}" oninput="orcSetItem(${i},'modelo',this.value)"></div>`:''}
+        </div>
+        <button class="orc-del" onclick="orcDelItem(${i})" title="Remover item">×</button>
+      </div>
+      <div class="orc-item-grid">
+        <label>Largura (m)<input type="text" inputmode="decimal" value="${orcMed(it.largura)}" oninput="orcSetItem(${i},'largura',this.value)"></label>
+        <label>Altura (m)<input type="text" inputmode="decimal" value="${orcMed(it.altura)}" oninput="orcSetItem(${i},'altura',this.value)"></label>
+        <label>Qtd<input type="number" min="1" value="${it.quantidade||1}" oninput="orcSetItem(${i},'quantidade',this.value)"></label>
+        <label>Vidro<input type="text" value="${orcEsc(it.vidro)}" placeholder="Incolor, espelhado…" oninput="orcSetItem(${i},'vidro',this.value)"></label>
+        <label>Cobrar por<select onchange="orcSetItem(${i},'modo_preco',this.value)"><option value="m2" ${it.modo_preco!=='un'?'selected':''}>m²</option><option value="un" ${it.modo_preco==='un'?'selected':''}>unidade</option></select></label>
+        <label>${it.modo_preco==='un'?'Preço da unidade':'Preço do m²'} (R$)<input type="text" inputmode="decimal" value="${it.preco!==null&&it.preco!==undefined?orcMed(it.preco):''}" oninput="orcSetItem(${i},'preco',this.value)"></label>
+      </div>
+      ${it.obs?`<div class="orc-item-obs">Obs. do cliente: ${orcEsc(it.obs)}</div>`:''}
+      <div class="orc-item-sub">${it.modo_preco!=='un'&&orcNum(it.largura)&&orcNum(it.altura)?`<span>${(orcNum(it.largura)*orcNum(it.altura)*(parseInt(it.quantidade)||1)).toLocaleString('pt-BR',{maximumFractionDigits:2})} m²</span>`:'<span></span>'}<b id="orcSub${i}">${orcBRL(orcSubItem(it))}</b></div>
+    </div>`;}).join('');
+  orcCalc();
+}
+function orcLerForm(){
+  const g=id=>document.getElementById(id).value;
+  return {cliente_nome:g('o-nome').trim(),cliente_telefone:g('o-tel').trim(),cidade:g('o-cidade').trim(),etapa_obra:g('o-etapa'),
+    lead_id:g('o-lead')||null,status:g('o-status'),ajuste_aproveitamento:orcNum(g('o-ajuste')),ajuste_obs:g('o-ajuste-obs').trim()||null,
+    desconto_tipo:g('o-desc-tipo'),desconto:orcNum(g('o-desconto')),condicoes_pagamento:g('o-pagto').trim()||null,prazo_entrega:g('o-prazo').trim()||null,
+    validade_dias:parseInt(g('o-validade'))||15,observacoes:g('o-obs').trim()||null,mostrar_valor_item:document.getElementById('o-mostrar-item').checked};
+}
+function orcCalc(){
+  const t=orcTotais(orcLerForm(),orcItensTmp);
+  document.getElementById('o-subtotal').textContent=orcBRL(t.sub);
+  document.getElementById('o-total').textContent=orcBRL(t.total);
+  return t;
+}
+async function orcSalvar(silencioso){
+  const f=orcLerForm();
+  if(!f.cliente_nome){showToast('Coloque o nome do cliente.','error');return null;}
+  if(!orcItensTmp.length){showToast('Adicione pelo menos um item.','error');return null;}
+  const t=orcTotais(f,orcItensTmp);f.total=t.total;f.updated_at=new Date().toISOString();
+  if(f.status==='aguardando'&&orcItensTmp.every(it=>orcNum(it.preco)>0))f.status='rascunho';
+  let id=orcAtual.id;
+  if(id){const {error}=await db.from('orcamentos').update(f).eq('id',id);if(error){showToast('Erro: '+error.message,'error');return null;}}
+  else{const {data,error}=await db.from('orcamentos').insert(f).select().single();if(error){showToast('Erro: '+error.message,'error');return null;}id=data.id;orcAtual=data;}
+  const linhas=orcItensTmp.map((it,i)=>({orcamento_id:id,produto_id:it.produto_id||null,categoria:it.categoria||null,modelo:it.modelo||null,foto_url:it.foto_url||null,
+    largura:orcNum(it.largura)||null,altura:orcNum(it.altura)||null,quantidade:Math.max(1,parseInt(it.quantidade)||1),vidro:it.vidro||null,obs:it.obs||null,
+    modo_preco:it.modo_preco==='un'?'un':'m2',preco:it.preco===''||it.preco===undefined||it.preco===null?null:orcNum(it.preco),ordem:i}));
+  const {error:e1}=await db.from('orcamento_itens').delete().eq('orcamento_id',id);
+  if(e1){showToast('Erro nos itens: '+e1.message,'error');return null;}
+  const {error:e2}=await db.from('orcamento_itens').insert(linhas);
+  if(e2){showToast('Erro nos itens: '+e2.message,'error');return null;}
+  Object.assign(orcAtual,f,{id});
+  // orçamento enviado: lead anda pra "Orçamento Enviado" (se ainda estiver antes) e guarda o valor
+  if(f.lead_id&&(f.status==='enviado'||f.status==='aprovado')){
+    const l=(allLeads||[]).find(x=>x.id===f.lead_id);const antes=['new','contact_initial','contact_done','visit_scheduled'];
+    const upd={value:t.total};if(l&&antes.includes(l.stage))upd.stage=f.status==='aprovado'?'won':'meeting_done';
+    if(l&&f.status==='aprovado')upd.stage='won';
+    await db.from('leads').update(upd).eq('id',f.lead_id);
+    try{await loadLeads();renderPipeline();renderDashboard();}catch(e){}
+  }
+  if(!silencioso){showToast('Orçamento salvo!','success');orcFechar();}
+  loadOrcamentos();
+  return orcAtual;
+}
+async function orcExcluir(){
+  if(!orcAtual.id||!confirm('Excluir este orçamento?'))return;
+  const {error}=await db.from('orcamentos').delete().eq('id',orcAtual.id);
+  if(error){showToast('Erro: '+error.message,'error');return;}
+  showToast('Orçamento excluído.','success');orcFechar();loadOrcamentos();
+}
+
+// ---------- PDF ----------
+async function orcImgData(url){
+  try{const r=await fetch(url);const b=await r.blob();
+    return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=()=>res(null);fr.readAsDataURL(b);});
+  }catch(e){return null;}
+}
+async function orcGerarPDF(){
+  const o=Object.assign({},orcAtual,orcLerForm());
+  const itens=orcItensTmp, t=orcTotais(o,itens);
+  const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:'mm',format:'a4'});
+  const W=doc.internal.pageSize.getWidth(), M=14; let y=14;
+  const logo=await orcImgData('assets/logo-pele.png');
+  if(logo)doc.addImage(logo,'PNG',M,y-2,44,22);
+  doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(20);
+  doc.text('ORÇAMENTO'+(o.numero?' '+orcCod(o.numero):''),W-M,y+6,{align:'right'});
+  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(110);
+  doc.text('Emitido em '+new Date().toLocaleDateString('pt-BR')+' · válido por '+(o.validade_dias||15)+' dias',W-M,y+12,{align:'right'});
+  doc.text('Pelé Esquadrias de Alumínio · (17) 99241-6696',W-M,y+17,{align:'right'});
+  y+=26;doc.setDrawColor(8,118,179);doc.setLineWidth(.8);doc.line(M,y,W-M,y);y+=7;
+  doc.setTextColor(20);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Cliente: '+(o.cliente_nome||''),M,y);
+  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(90);
+  const info=[o.cliente_telefone,o.cidade,o.etapa_obra?'Obra: '+o.etapa_obra:''].filter(Boolean).join('  ·  ');
+  if(info){y+=5;doc.text(info,M,y);} y+=6;
+  const fotos=await Promise.all(itens.map(it=>it.foto_url?orcImgData(it.foto_url):null));
+  const mostrar=o.mostrar_valor_item!==false;
+  const head=[['','Item','Medida','Qtd'].concat(mostrar?['Valor']:[])];
+  const body=itens.map((it,i)=>{
+    const med=orcNum(it.largura)&&orcNum(it.altura)?orcMed(it.largura)+' × '+orcMed(it.altura)+' m':'—';
+    const nome=[it.categoria,it.modelo].filter(Boolean).join(' · ')+(it.vidro?'\nVidro: '+it.vidro:'');
+    return ['',nome,med,String(it.quantidade||1)].concat(mostrar?[orcBRL(orcSubItem(it))]:[]);
+  });
+  doc.autoTable({startY:y,head,body,margin:{left:M,right:M},theme:'grid',
+    styles:{fontSize:9,cellPadding:2.5,valign:'middle',textColor:30,lineColor:220},
+    headStyles:{fillColor:[8,34,61],textColor:255,fontStyle:'bold'},
+    columnStyles:{0:{cellWidth:18,minCellHeight:16},2:{cellWidth:32},3:{cellWidth:12,halign:'center'},4:{cellWidth:30,halign:'right'}},
+    didDrawCell:d=>{if(d.section==='body'&&d.column.index===0&&fotos[d.row.index]){try{doc.addImage(fotos[d.row.index],'JPEG',d.cell.x+1.5,d.cell.y+1.5,15,13);}catch(e){}}}
+  });
+  y=doc.lastAutoTable.finalY+6;
+  const linha=(rot,val,neg)=>{doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(60);doc.text(rot,W-M-60,y);doc.text((neg?'- ':'')+orcBRL(val),W-M,y,{align:'right'});y+=6;};
+  linha('Subtotal',t.sub);
+  if(t.aj)linha('Ajuste de aproveitamento',t.aj);
+  if(t.desc)linha('Desconto'+(o.desconto_tipo==='pct'?' ('+orcMed(o.desconto)+'%)':''),t.desc,true);
+  doc.setFillColor(8,34,61);doc.rect(W-M-64,y-4,64,10,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(12);
+  doc.text('TOTAL',W-M-60,y+2.5);doc.text(orcBRL(t.total),W-M-2,y+2.5,{align:'right'});y+=14;
+  const bloco=(tit,txt)=>{if(!txt)return;if(y>265){doc.addPage();y=18;}doc.setTextColor(20);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text(tit,M,y);y+=5;
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(70);const ls=doc.splitTextToSize(txt,W-2*M);doc.text(ls,M,y);y+=ls.length*4.4+4;};
+  if(t.aj)bloco('Sobre o ajuste de aproveitamento',ORC_EXPLICA+(o.ajuste_obs?' '+o.ajuste_obs:''));
+  bloco('Condições de pagamento',o.condicoes_pagamento||'A combinar.');
+  bloco('Prazo de entrega',o.prazo_entrega);
+  bloco('Medidas','Medidas informadas para orçamento inicial. A medição final é feita na obra e pode ajustar os valores.');
+  bloco('Observações',o.observacoes);
+  doc.setFontSize(8);doc.setTextColor(150);doc.text('Pelé Esquadrias de Alumínio · Av. Alfredo Teodoro de Oliveira, 2594 · São José do Rio Preto/SP',W/2,290,{align:'center'});
+  return doc;
+}
+async function orcPDF(){
+  if(!orcItensTmp.length){showToast('Adicione itens antes.','error');return;}
+  const salvo=await orcSalvar(true);if(!salvo)return;
+  const doc=await orcGerarPDF();
+  doc.save('Orcamento-'+orcCod(orcAtual.numero).replace('#','')+'-'+(orcAtual.cliente_nome||'').replace(/[^\wÀ-ú]+/g,'-')+'.pdf');
+}
+async function orcCompartilhar(){
+  if(!orcItensTmp.length){showToast('Adicione itens antes.','error');return;}
+  const salvo=await orcSalvar(true);if(!salvo)return;
+  const doc=await orcGerarPDF();
+  const nome='Orcamento-'+orcCod(orcAtual.numero).replace('#','')+'.pdf';
+  const arq=new File([doc.output('blob')],nome,{type:'application/pdf'});
+  const tel=(orcAtual.cliente_telefone||'').replace(/\D/g,'');
+  const texto='Olá '+(orcAtual.cliente_nome||'').split(' ')[0]+'! Segue o orçamento '+orcCod(orcAtual.numero)+' da Pelé Esquadrias. Qualquer dúvida é só me chamar.';
+  if(navigator.canShare&&navigator.canShare({files:[arq]})){
+    try{await navigator.share({files:[arq],text:texto});}catch(e){}
+  }else{
+    doc.save(nome);
+    if(tel)window.open('https://wa.me/55'+tel+'?text='+encodeURIComponent(texto+' (PDF em anexo)'),'_blank');
+    showToast('PDF baixado — anexe na conversa do WhatsApp.','success');
+  }
+  if(orcAtual.status==='rascunho'||orcAtual.status==='aguardando'){
+    document.getElementById('o-status').value='enviado';await orcSalvar(true);
+  }
+}
+
+// ---------- CATÁLOGO (tela) ----------
+async function loadProdutos(){
+  await prodCarregar();
+  const el=document.getElementById('prodLista');
+  if(!prodTodos.length){el.innerHTML='<div class="empty-state"><p>Nenhum produto. Rode o orcamentos.sql ou toque em "+ Produto".</p></div>';return;}
+  const cats={};prodTodos.forEach(p=>(cats[p.categoria]=cats[p.categoria]||[]).push(p));
+  el.innerHTML=Object.entries(cats).map(([c,ps])=>`<div class="prod-cat">${orcEsc(c)}</div><div class="prod-grid">${ps.map(p=>`
+    <div class="prod-card ${p.ativo?'':'off'}" onclick="prodAbrir('${p.id}')">
+      ${p.foto_url?`<img src="${orcEsc(p.foto_url)}" alt="">`:'<div class="prod-sem">sem foto</div>'}
+      <div class="prod-nome">${orcEsc(p.modelo)}</div>
+      <div class="prod-preco">${p.preco_m2?orcBRL(p.preco_m2)+'/m²':p.preco_un?orcBRL(p.preco_un)+'/un':'sem preço'}</div>
+    </div>`).join('')}</div>`).join('');
+}
+function prodAbrir(id){
+  const p=id?prodTodos.find(x=>x.id===id):{ativo:true};
+  const v=(k,x)=>document.getElementById(k).value=(x??'');
+  v('pr-id',p.id);v('pr-cat',p.categoria);v('pr-modelo',p.modelo);v('pr-desc',p.descricao);
+  v('pr-m2',p.preco_m2?orcMed(p.preco_m2):'');v('pr-un',p.preco_un?orcMed(p.preco_un):'');
+  document.getElementById('pr-ativo').checked=p.ativo!==false;
+  document.getElementById('pr-foto').value='';
+  const img=document.getElementById('pr-foto-prev');img.src=p.foto_url||'';img.style.display=p.foto_url?'block':'none';
+  document.getElementById('prCats').innerHTML=[...new Set(prodTodos.map(x=>x.categoria))].map(c=>`<option value="${orcEsc(c)}">`).join('');
+  document.getElementById('prodTitulo').textContent=p.id?'Editar produto':'Novo produto';
+  document.getElementById('prBtnExcluir').style.display=p.id?'':'none';
+  document.getElementById('prodModal').classList.add('open');
+}
+function prodPrevia(inp){const f=inp.files&&inp.files[0];if(!f)return;const img=document.getElementById('pr-foto-prev');img.src=URL.createObjectURL(f);img.style.display='block';}
+async function prodSalvar(){
+  const g=k=>document.getElementById(k).value.trim();
+  const d={categoria:g('pr-cat'),modelo:g('pr-modelo'),descricao:g('pr-desc')||null,preco_m2:g('pr-m2')?orcNum(g('pr-m2')):null,preco_un:g('pr-un')?orcNum(g('pr-un')):null,ativo:document.getElementById('pr-ativo').checked};
+  if(!d.categoria||!d.modelo){showToast('Categoria e modelo são obrigatórios.','error');return;}
+  const btn=document.getElementById('prBtnSalvar');btn.disabled=true;
+  const f=document.getElementById('pr-foto').files[0];
+  if(f){
+    const path=Date.now()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    const {error}=await db.storage.from('catalogo').upload(path,f,{upsert:true});
+    if(error){showToast('Erro na foto: '+error.message,'error');btn.disabled=false;return;}
+    d.foto_url=db.storage.from('catalogo').getPublicUrl(path).data.publicUrl;
+  }
+  const id=g('pr-id');
+  const {error}=id?await db.from('produtos').update(d).eq('id',id):await db.from('produtos').insert(d);
+  btn.disabled=false;
+  if(error){showToast('Erro: '+error.message,'error');return;}
+  showToast('Produto salvo!','success');closeModal('prodModal');loadProdutos();
+}
+async function prodExcluir(){
+  const id=document.getElementById('pr-id').value;
+  if(!id||!confirm('Excluir este produto do catálogo?'))return;
+  const {error}=await db.from('produtos').delete().eq('id',id);
+  if(error){showToast('Erro: '+error.message,'error');return;}
+  showToast('Produto excluído.','success');closeModal('prodModal');loadProdutos();
+}
+// orçamento a partir do lead aberto
+function orcDoLead(){if(!currentDetailLead)return;closeDetail();orcNovo(currentDetailLead);}
+
+</script>
 </body>
 </html>

@@ -3179,10 +3179,11 @@ async function orcSalvar(silencioso){
   const {error:e2}=await db.from('orcamento_itens').insert(linhas);
   if(e2){showToast('Erro nos itens: '+e2.message,'error');return null;}
   Object.assign(orcAtual,f,{id});
-  // orçamento enviado: lead anda pra "Orçamento Enviado" (se ainda estiver antes) e guarda o valor
-  if(f.lead_id&&(f.status==='enviado'||f.status==='aprovado')){
+  // valor do orçamento vai pro card do lead; enviado/aprovado também anda no funil
+  if(f.lead_id&&f.status!=='recusado'&&t.total>0){
     const l=(allLeads||[]).find(x=>x.id===f.lead_id);const antes=['new','contact_initial','contact_done','visit_scheduled'];
-    const upd={value:t.total};if(l&&antes.includes(l.stage))upd.stage=f.status==='aprovado'?'won':'meeting_done';
+    const upd={value:t.total};
+    if(l&&f.status==='enviado'&&antes.includes(l.stage))upd.stage='meeting_done';
     if(l&&f.status==='aprovado')upd.stage='won';
     await db.from('leads').update(upd).eq('id',f.lead_id);
     try{await loadLeads();renderPipeline();renderDashboard();}catch(e){}

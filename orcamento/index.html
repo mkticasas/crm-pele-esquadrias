@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Monte seu orçamento · Pelé Esquadrias</title>
+<meta name="description" content="Escolha portas e janelas de alumínio, coloque as medidas e receba o orçamento da Pelé Esquadrias pelo WhatsApp.">
+<meta name="theme-color" content="#08223d">
+<link rel="icon" href="../assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:title" content="Monte seu orçamento · Pelé Esquadrias">
+<meta property="og:description" content="Portas e janelas de alumínio em Rio Preto. Escolha, coloque a medida e receba o orçamento no WhatsApp.">
+<meta property="og:image" content="https://mkticasas.github.io/crm-pele-esquadrias/assets/icon-512.png">
+<style>
+  :root{
+    --navy:#08223d;--navy2:#0d2f52;--blue:#0876b3;--cyan:#06bcec;
+    --bg:#f4f6f9;--card:#fff;--line:#e3e8ef;--text:#0f1a26;--text2:#4b5b6d;--text3:#8593a3;
+    --ok:#16a34a;--radius:14px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  body{padding-bottom:calc(96px + env(safe-area-inset-bottom));}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;font-size:16px;color:var(--text);}
+  img{display:block;max-width:100%;}
+
+  /* topo */
+  .hero{background:var(--navy);color:#fff;padding:calc(18px + env(safe-area-inset-top)) 18px 22px;}
+  .hero-in{max-width:960px;margin:0 auto;}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .logo{background:#fff;border-radius:10px;padding:5px 9px;display:inline-flex;}
+  .logo img{height:34px;width:auto;}
+  .hero-wa{color:#fff;text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 12px;white-space:nowrap;}
+  .hero h1{font-size:26px;line-height:1.15;margin:18px 0 8px;letter-spacing:-.02em;}
+  .hero p{margin:0;color:#c6d4e3;font-size:15px;line-height:1.45;max-width:560px;}
+  .passos{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .passo{display:flex;align-items:center;gap:7px;font-size:13px;color:#dbe6f1;background:rgba(255,255,255,.08);border-radius:999px;padding:6px 11px;}
+  .passo b{background:var(--cyan);color:var(--navy);width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;}
+
+  main{max-width:960px;margin:0 auto;padding:0 14px;}
+  .tipos{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 10px;}
+  .tipo{border:2px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px;text-align:left;}
+  .tipo b{display:block;font-size:15px;}
+  .tipo span{font-size:12px;color:var(--text3);}
+  .tipo.on{border-color:var(--blue);background:#eef7fc;}
+  .kit{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,#e7f5fb,#fff);border:1px dashed var(--blue);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;text-align:left;color:var(--text);}
+  .kit b{font-size:14px;} .kit span{display:block;font-size:12px;color:var(--text2);margin-top:2px;}
+  .kit i{font-style:normal;color:var(--blue);font-weight:600;font-size:13px;white-space:nowrap;}
+  .cats{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none;}
+  .cats::-webkit-scrollbar{display:none;}
+  .cat{flex-shrink:0;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--text2);}
+  .cat.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+  .prod{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;position:relative;}
+  .prod-img{aspect-ratio:4/3;background:#eef2f6;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .prod-img img{width:100%;height:100%;object-fit:cover;}
+  .prod-ini{font-size:28px;font-weight:700;color:#b9c5d2;}
+  .prod-tx{padding:10px 11px 12px;}
+  .prod-cat{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;}
+  .prod-nome{font-size:14px;font-weight:600;line-height:1.25;margin-top:2px;}
+  .prod-sub{font-size:12px;color:var(--text2);margin-top:4px;}
+  .prod-badge{position:absolute;top:8px;right:8px;background:var(--ok);color:#fff;font-size:12px;font-weight:700;border-radius:999px;padding:2px 8px;}
+  .vazio{text-align:center;color:var(--text3);padding:40px 0;}
+  .confia{margin:22px 0 8px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:grid;gap:8px;font-size:14px;color:var(--text2);}
+  .confia b{color:var(--text);}
+
+  /* barra do pedido */
+  .barra{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:none;z-index:20;}
+  .barra.on{display:block;}
+  .barra button{width:100%;max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:15px 18px;font-size:16px;font-weight:600;}
+
+  /* folhas (bottom sheet) */
+  .veu{position:fixed;inset:0;background:rgba(8,20,35,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:30;}
+  .veu.on{opacity:1;pointer-events:auto;}
+  .folha{position:fixed;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:var(--card);border-radius:20px 20px 0 0;transform:translateY(105%);transition:transform .25s ease;z-index:31;padding:0 0 calc(18px + env(safe-area-inset-bottom));}
+  .folha.on{transform:none;}
+  @media(min-width:720px){.folha{left:50%;right:auto;width:560px;margin-left:-280px;bottom:auto;top:50%;transform:translateY(-40%);opacity:0;pointer-events:none;border-radius:20px;max-height:88vh;transition:all .2s;}.folha.on{transform:translateY(-50%);opacity:1;pointer-events:auto;}}
+  .folha-top{position:sticky;top:0;background:var(--card);display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;border-bottom:1px solid var(--line);z-index:1;}
+  .folha-top b{font-size:17px;}
+  .fechar{border:none;background:#eef2f6;border-radius:50%;width:34px;height:34px;font-size:20px;line-height:1;color:var(--text2);}
+  .folha-in{padding:14px 16px 0;}
+  .det-img{border-radius:12px;overflow:hidden;background:#eef2f6;margin-bottom:12px;}
+  .det-nome{font-size:19px;font-weight:700;line-height:1.2;}
+  .det-sub{font-size:13px;color:var(--text2);margin:4px 0 14px;}
+  .rot{font-size:13px;font-weight:600;color:var(--text2);margin:14px 0 8px;display:block;}
+  .rot small{font-weight:400;color:var(--text3);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;font-size:14px;color:var(--text);}
+  .chip.on{border-color:var(--blue);background:#eef7fc;color:var(--navy);font-weight:600;}
+  .medidas{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .campo{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text3);}
+  .campo input,.campo select,.campo textarea{border:1.5px solid var(--line);border-radius:10px;padding:12px;background:#fff;width:100%;}
+  .campo input:focus,.campo textarea:focus,.campo select:focus{outline:none;border-color:var(--blue);}
+  .dica{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.4;}
+  .qtd{display:flex;align-items:center;gap:0;border:1.5px solid var(--line);border-radius:10px;width:max-content;overflow:hidden;}
+  .qtd button{border:none;background:#f1f4f8;width:46px;height:46px;font-size:22px;color:var(--navy);}
+  .qtd span{min-width:52px;text-align:center;font-size:17px;font-weight:600;}
+  .btn-main{width:100%;border:none;border-radius:12px;background:var(--blue);color:#fff;font-size:16px;font-weight:600;padding:15px;margin-top:18px;}
+  .btn-main:disabled{opacity:.5;}
+  .btn-sec{width:100%;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--text);font-size:15px;padding:13px;margin-top:10px;}
+  .erro{color:#dc2626;font-size:13px;margin-top:8px;display:none;}
+
+  /* lista do pedido */
+  .it{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+  .it-img{width:56px;height:56px;border-radius:10px;background:#eef2f6;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#b9c5d2;font-weight:700;}
+  .it-img img{width:100%;height:100%;object-fit:cover;}
+  .it-tx{flex:1;min-width:0;}
+  .it-nome{font-size:14px;font-weight:600;}
+  .it-med{font-size:13px;color:var(--text2);margin-top:2px;}
+  .it-falta{font-size:12px;color:#d97706;margin-top:2px;}
+  .it-acoes{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+  .it-acoes button{border:none;background:none;color:var(--blue);font-size:13px;padding:2px 0;}
+  .it-acoes .rm{color:#dc2626;}
+  .etapas{display:grid;gap:8px;}
+  .etapas .chip{text-align:left;}
+
+  /* final */
+  .ok{text-align:center;padding:10px 0 4px;}
+  .ok-ic{width:64px;height:64px;border-radius:50%;background:#dcfce7;color:var(--ok);font-size:34px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+  .ok h2{margin:0 0 6px;font-size:22px;}
+  .ok p{margin:0;color:var(--text2);font-size:15px;line-height:1.45;}
+  .copia{background:#f6f8fb;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:16px;font-size:13px;color:var(--text2);text-align:left;white-space:pre-line;line-height:1.5;}
+  .wa{background:#16a34a!important;}
+  .rodape{text-align:center;font-size:12px;color:var(--text3);padding:28px 14px 8px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="hero-top">
+      <span class="logo"><img src="../assets/logo-pele.svg" alt="Pelé Esquadrias de Alumínio e Vidros"></span>
+      <a class="hero-wa" id="heroWa" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </div>
+    <h1>Monte seu orçamento</h1>
+    <p>Escolha portas e janelas, coloque as medidas e envie. A Pelé responde com os valores pelo WhatsApp.</p>
+    <div class="passos">
+      <span class="passo"><b>1</b>Escolha os itens</span>
+      <span class="passo"><b>2</b>Coloque a medida</span>
+      <span class="passo"><b>3</b>Envie seu pedido</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="tipos">
+    <button class="tipo on" data-t="pronta" onclick="setTipo('pronta')"><b>Linha pronta</b><span>Tamanhos de fábrica, entrega mais rápida</span></button>
+    <button class="tipo" data-t="medida" onclick="setTipo('medida')"><b>Sob medida</b><span>Feito na medida da sua obra</span></button>
+  </div>
+  <button class="kit" id="kitBtn" onclick="addKit()" style="display:none">
+    <div><b>Casa de condomínio?</b><span>Adicione de uma vez os itens que quase toda casa leva e só ajuste as medidas.</span></div><i>Usar kit</i>
+  </button>
+  <div class="cats" id="cats"></div>
+  <div class="grid" id="grid"><div class="vazio">Carregando catálogo…</div></div>
+
+  <div class="confia">
+    <div>⭐ <b>Nota 5,0 no Google</b> — material, montagem e prazo elogiados pelos clientes.</div>
+    <div>📏 <b>Medida aproximada serve.</b> A medição final é feita na sua obra antes de fabricar.</div>
+    <div>💬 <b>Sem compromisso.</b> Você recebe os valores e decide com calma.</div>
+  </div>
+  <div class="rodape">Pelé Esquadrias de Alumínio e Vidros · São José do Rio Preto/SP</div>
+</main>
+
+<div class="barra" id="barra"><button onclick="abrirPedido()"><span id="barraTxt">0 itens</span><span>Ver meu pedido →</span></button></div>
+
+<div class="veu" id="veu" onclick="fecharTudo()"></div>
+
+<!-- detalhe do produto -->
+<div class="folha" id="fProd">
+  <div class="folha-top"><b>Adicionar item</b><button class="fechar" onclick="fecharTudo()">×</button></div>
+  <div class="folha-in" id="fProdIn"></div>
+</div>
+
+<!-- pedido -->
+<div class="folha" id="fPed">
+  <div class="folha-top"><b>Meu pedido</b><button class="fechar" onclick="fecharTudo()">×</button></div>
+  <div class="folha-in">
+    <div id="pedLista"></div>
+    <button class="btn-sec" onclick="fecharTudo()">+ Adicionar mais itens</button>
+    <span class="rot">Seus dados</span>
+    <div style="display:grid;gap:10px">
+      <label class="campo">Nome *<input id="dNome" autocomplete="name" placeholder="Seu nome"></label>
+      <label class="campo">WhatsApp *<input id="dTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(17) 99999-9999"></label>
+      <label class="campo">Cidade / bairro da obra<input id="dCidade" placeholder="Ex.: Rio Preto · Jd. Planalto"></label>
+    </div>
+    <span class="rot">Em que etapa está a sua obra?</span>
+    <div class="etapas" id="etapas"></div>
+    <label class="campo" style="margin-top:12px">Observações <small>(opcional)</small><textarea id="dObs" rows="2" placeholder="Ex.: cor preta em tudo, vidro fosco no banheiro…"></textarea></label>
+    <div class="erro" id="pedErro"></div>
+    <button class="btn-main" id="btnEnviar" onclick="enviar()">Enviar pedido de orçamento</button>
+    <div class="dica" style="text-align:center">Sem preço aqui: a Pelé confere as medidas e manda os valores pelo WhatsApp.</div>
+  </div>
+</div>
+
+<!-- confirmação -->
+<div class="folha" id="fOk">
+  <div class="folha-top"><b>Pedido enviado</b><button class="fechar" onclick="novoPedido()">×</button></div>
+  <div class="folha-in" id="fOkIn"></div>
+</div>
+
+<script>
+const SUPA_URL='https://yobtuzvmaimetwrejunk.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvYnR1enZtYWltZXR3cmVqdW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0NTU5MTIsImV4cCI6MjEwNzAzMTkxMn0.F7kpe-lLOQSRA5DvVRgb7kLNVATv3OfYUvN3bKfzqA0';
+const WHATS='5517992416696';
+const ETAPAS=['Ainda não comecei (projeto / pré-obra)','Começando (fundação / estrutura)','Em andamento (alvenaria / reboco)','Acabamento (pronta pra esquadria)','Obra pronta / reforma'];
+// itens que quase toda casa de condomínio leva (sob medida)
+const KIT=[['Porta de entrada','Ripada'],['Porta de garagem','Basculante de lambril'],['Porta de correr','Gourmet (4 ou 5 folhas)'],['Janela','De correr'],['Janela','Maxim-ar'],['Box','Frontal de correr']];
+
+let catalogo=[], tipoAtual='pronta', catAtual='', pedido=[], etapa='', editando=-1, temp=null;
+
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isNaN(n)?0:n;};
+const metro=v=>{let n=num(v);if(n>20)n=n/100;return Math.round(n*1000)/1000;};   // aceita 120 (cm) ou 1,20 (m)
+const fm=v=>String(v).replace('.',',');
+const medTxt=it=>it.largura&&it.altura?fm(it.largura)+' × '+fm(it.altura)+' m':'medida a informar';
+const ini=s=>(s||'?').trim().charAt(0).toUpperCase();
+function salvarLocal(){try{localStorage.setItem('pele_pedido',JSON.stringify({pedido,etapa}));}catch(e){}}
+function lerLocal(){try{const d=JSON.parse(localStorage.getItem('pele_pedido')||'{}');pedido=d.pedido||[];etapa=d.etapa||'';}catch(e){}}
+
+async function rpc(fn,body){
+  const r=await fetch(SUPA_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+  const t=await r.text();let j=null;try{j=JSON.parse(t);}catch(e){}
+  if(!r.ok)throw new Error((j&&(j.message||j.hint))||'Falha de conexão');
+  return j;
+}
+
+async function carregar(){
+  document.getElementById('heroWa').href='https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site e quero um orçamento.');
+  lerLocal();
+  try{catalogo=await rpc('catalogo_publico');}
+  catch(e){document.getElementById('grid').innerHTML='<div class="vazio">Não foi possível carregar o catálogo agora. Tente de novo em instantes ou chame no WhatsApp.</div>';return;}
+  if(!catalogo.some(p=>p.tipo==='pronta'))tipoAtual='medida';
+  setTipo(tipoAtual);atualizarBarra();
+}
+function setTipo(t){
+  tipoAtual=t;catAtual='';
+  document.querySelectorAll('.tipo').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  document.getElementById('kitBtn').style.display=t==='medida'?'flex':'none';
+  render();
+}
+function setCat(c){catAtual=c;render();}
+function render(){
+  const lista=catalogo.filter(p=>p.tipo===tipoAtual);
+  const cats=[...new Set(lista.map(p=>p.categoria))];
+  document.getElementById('cats').innerHTML=`<button class="cat ${catAtual===''?'on':''}" onclick="setCat('')">Todos</button>`+cats.map(c=>`<button class="cat ${catAtual===c?'on':''}" onclick="setCat('${esc(c).replace(/'/g,"\\'")}')">${esc(c)}</button>`).join('');
+  const vis=lista.filter(p=>!catAtual||p.categoria===catAtual);
+  const g=document.getElementById('grid');
+  if(!vis.length){g.innerHTML='<div class="vazio">Nada aqui ainda.</div>';return;}
+  g.innerHTML=vis.map(p=>{
+    const n=pedido.filter(i=>i.produto_id===p.id).reduce((a,i)=>a+i.quantidade,0);
+    const sub=p.tipo==='pronta'&&p.tamanhos?p.tamanhos.length+' tamanho'+(p.tamanhos.length>1?'s':''):'Sob medida';
+    return `<button class="prod" onclick="abrirProd('${p.id}')">
+      ${n?`<span class="prod-badge">${n} no pedido</span>`:''}
+      <div class="prod-img">${p.foto_url?`<img src="${esc(p.foto_url)}" alt="${esc(p.categoria+' '+p.modelo)}" loading="lazy">`:`<span class="prod-ini">${ini(p.categoria)}</span>`}</div>
+      <div class="prod-tx"><div class="prod-cat">${esc(p.categoria)}</div><div class="prod-nome">${esc(p.modelo)}</div><div class="prod-sub">${esc(sub)}${p.cores?' · '+esc(p.cores):''}</div></div>
+    </button>`;}).join('');
+}
+
+// ---------- adicionar / editar item ----------
+function coresDe(p){const c=(p&&p.cores||'').toLowerCase();const r=[];if(c.includes('preto'))r.push('Preto');if(c.includes('branco'))r.push('Branco');return r;}
+function abrirProd(id,idxEdit){
+  const p=catalogo.find(x=>x.id===id);if(!p)return;
+  editando=idxEdit===undefined?-1:idxEdit;
+  const it=editando>=0?pedido[editando]:null;
+  temp={produto_id:p.id,categoria:p.categoria,modelo:p.modelo,foto_url:p.foto_url,quantidade:it?it.quantidade:1,
+        tam:it&&it.tam!==undefined?it.tam:(p.tipo==='pronta'&&p.tamanhos?0:-1),largura:it?it.largura:'',altura:it?it.altura:'',cor:it?it.cor:(coresDe(p)[0]||''),obs:it?it.obs:''};
+  desenharProd(p);
+  abrir('fProd');
+}
+function desenharProd(p){
+  const pronta=p.tipo==='pronta'&&p.tamanhos&&p.tamanhos.length, cores=coresDe(p);
+  const livre=!pronta||temp.tam===-1;
+  document.getElementById('fProdIn').innerHTML=`
+    ${p.foto_url?`<div class="det-img"><img src="${esc(p.foto_url)}" alt=""></div>`:''}
+    <div class="det-nome">${esc(p.categoria)} · ${esc(p.modelo)}</div>
+    <div class="det-sub">${pronta?'Linha pronta · tamanhos de fábrica':'Sob medida · feito na medida da sua obra'}${p.cores?' · '+esc(p.cores):''}</div>
+    ${pronta?`<span class="rot">Tamanho <small>(largura × altura)</small></span>
+      <div class="chips">${p.tamanhos.map((t,i)=>`<button class="chip ${temp.tam===i?'on':''}" onclick="temp.tam=${i};desenharProd(catalogo.find(x=>x.id==='${p.id}'))">${(t.l/10)} × ${(t.a/10)} cm</button>`).join('')}
+        <button class="chip ${temp.tam===-1?'on':''}" onclick="temp.tam=-1;desenharProd(catalogo.find(x=>x.id==='${p.id}'))">Outra medida</button></div>`:''}
+    ${livre?`<span class="rot">Medida do vão <small>(aproximada)</small></span>
+      <div class="medidas">
+        <label class="campo">Largura (m)<input inputmode="decimal" id="tL" value="${esc(temp.largura?fm(temp.largura):'')}" placeholder="Ex.: 1,20"></label>
+        <label class="campo">Altura (m)<input inputmode="decimal" id="tA" value="${esc(temp.altura?fm(temp.altura):'')}" placeholder="Ex.: 2,10"></label>
+      </div>
+      <div class="dica">Pode ser aproximada. Se não souber agora, deixe em branco que a Pelé confirma com você.</div>`:''}
+    ${cores.length>1?`<span class="rot">Cor</span><div class="chips">${cores.map(c=>`<button class="chip ${temp.cor===c?'on':''}" onclick="temp.cor='${c}';desenharProd(catalogo.find(x=>x.id==='${p.id}'))">${c}</button>`).join('')}</div>`:''}
+    <span class="rot">Quantidade</span>
+    <div class="qtd"><button onclick="mudaQtd(-1)">−</button><span id="tQ">${temp.quantidade}</span><button onclick="mudaQtd(1)">+</button></div>
+    <label class="campo" style="margin-top:14px">Observação <small>(opcional)</small><input id="tO" value="${esc(temp.obs)}" placeholder="Ex.: vidro fosco, lado da abertura…"></label>
+    <button class="btn-main" onclick="confirmarItem()">${editando>=0?'Salvar alteração':'Adicionar ao pedido'}</button>`;
+}
+function mudaQtd(d){temp.quantidade=Math.max(1,Math.min(99,temp.quantidade+d));document.getElementById('tQ').textContent=temp.quantidade;}
+function confirmarItem(){
+  const p=catalogo.find(x=>x.id===temp.produto_id);
+  const pronta=p.tipo==='pronta'&&p.tamanhos&&p.tamanhos.length;
+  const it={produto_id:p.id,categoria:p.categoria,modelo:p.modelo,foto_url:p.foto_url,quantidade:temp.quantidade,cor:temp.cor||'',obs:(document.getElementById('tO')||{}).value||''};
+  if(pronta&&temp.tam>=0){const t=p.tamanhos[temp.tam];it.tam=temp.tam;it.largura=t.l/1000;it.altura=t.a/1000;}
+  else{it.tam=-1;it.largura=metro((document.getElementById('tL')||{}).value);it.altura=metro((document.getElementById('tA')||{}).value);
+    if(!it.largura||!it.altura){it.largura='';it.altura='';}}
+  if(editando>=0)pedido[editando]=it;else pedido.push(it);
+  salvarLocal();atualizarBarra();render();fecharTudo();
+}
+function addKit(){
+  let n=0;
+  KIT.forEach(([c,m])=>{const p=catalogo.find(x=>x.tipo==='medida'&&x.categoria===c&&x.modelo===m);
+    if(p&&!pedido.some(i=>i.produto_id===p.id)){pedido.push({produto_id:p.id,categoria:p.categoria,modelo:p.modelo,foto_url:p.foto_url,quantidade:1,tam:-1,largura:'',altura:'',cor:'',obs:''});n++;}});
+  salvarLocal();atualizarBarra();render();
+  if(n)abrirPedido();
+}
+
+// ---------- pedido ----------
+function atualizarBarra(){
+  const q=pedido.reduce((a,i)=>a+i.quantidade,0);
+  document.getElementById('barra').classList.toggle('on',pedido.length>0);
+  document.getElementById('barraTxt').textContent=q+' '+(q===1?'item':'itens');
+}
+function abrirPedido(){desenharPedido();abrir('fPed');}
+function desenharPedido(){
+  const el=document.getElementById('pedLista');
+  if(!pedido.length){el.innerHTML='<div class="vazio" style="padding:20px 0">Seu pedido está vazio.</div>';}
+  else el.innerHTML=pedido.map((it,i)=>`<div class="it">
+    <div class="it-img">${it.foto_url?`<img src="${esc(it.foto_url)}" alt="">`:ini(it.categoria)}</div>
+    <div class="it-tx"><div class="it-nome">${it.quantidade}× ${esc(it.categoria)} · ${esc(it.modelo)}</div>
+      <div class="it-med">${medTxt(it)}${it.cor?' · '+esc(it.cor):''}${it.obs?' · '+esc(it.obs):''}</div>
+      ${it.largura?'':'<div class="it-falta">Toque em editar para colocar a medida (opcional)</div>'}</div>
+    <div class="it-acoes"><button onclick="fecharTudo();setTimeout(()=>abrirProd('${it.produto_id}',${i}),220)">Editar</button><button class="rm" onclick="tirar(${i})">Remover</button></div>
+  </div>`).join('');
+  document.getElementById('etapas').innerHTML=ETAPAS.map(e=>`<button class="chip ${etapa===e?'on':''}" onclick="etapa='${e}';salvarLocal();desenharPedido()">${e}</button>`).join('');
+  document.getElementById('btnEnviar').disabled=!pedido.length;
+}
+function tirar(i){pedido.splice(i,1);salvarLocal();atualizarBarra();render();desenharPedido();if(!pedido.length)fecharTudo();}
+
+async function enviar(){
+  const nome=document.getElementById('dNome').value.trim(), tel=document.getElementById('dTel').value.replace(/\D/g,'');
+  const erro=document.getElementById('pedErro');erro.style.display='none';
+  if(!pedido.length){return;}
+  if(!nome||tel.length<10){erro.textContent='Coloque seu nome e um WhatsApp com DDD.';erro.style.display='block';return;}
+  const btn=document.getElementById('btnEnviar');btn.disabled=true;btn.textContent='Enviando…';
+  const cidade=document.getElementById('dCidade').value.trim(), obs=document.getElementById('dObs').value.trim();
+  const itens=pedido.map(it=>({produto_id:it.produto_id,categoria:it.categoria,modelo:it.modelo,foto_url:it.foto_url,
+    largura:it.largura?String(it.largura):'',altura:it.altura?String(it.altura):'',quantidade:it.quantidade,
+    obs:[it.cor?'Cor: '+it.cor:'',it.obs].filter(Boolean).join(' · ')}));
+  try{
+    const numero=await rpc('criar_pedido_orcamento',{p:{nome,telefone:tel,cidade,etapa_obra:etapa,observacoes:obs,itens}});
+    mostrarOk(numero,nome,cidade,obs);
+    pedido=[];etapa='';salvarLocal();atualizarBarra();render();
+  }catch(e){erro.textContent='Não foi possível enviar: '+e.message+'. Tente de novo ou chame no WhatsApp.';erro.style.display='block';}
+  btn.disabled=false;btn.textContent='Enviar pedido de orçamento';
+}
+function mostrarOk(numero,nome,cidade,obs){
+  const cod='#'+String(numero||0).padStart(4,'0');
+  const linhas=pedido.map(it=>`• ${it.quantidade}× ${it.categoria} · ${it.modelo} — ${medTxt(it)}${it.cor?' · '+it.cor:''}${it.obs?' · '+it.obs:''}`).join('\n');
+  const texto=`Olá! Acabei de enviar o pedido de orçamento ${cod} pelo site.\n\n${linhas}${etapa?'\n\nObra: '+etapa:''}${cidade?'\nLocal: '+cidade:''}${obs?'\nObs.: '+obs:''}\n\nNome: ${nome}`;
+  document.getElementById('fOkIn').innerHTML=`<div class="ok"><div class="ok-ic">✓</div><h2>Pedido ${cod} recebido!</h2>
+    <p>A Pelé já recebeu seus itens e vai mandar os valores pelo WhatsApp. Se quiser agilizar, mande uma mensagem agora.</p></div>
+    <div class="copia"><b>Sua cópia do pedido</b>\n${esc(linhas)}</div>
+    <a class="btn-main wa" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/${WHATS}?text=${encodeURIComponent(texto)}" target="_blank" rel="noopener">Enviar no WhatsApp da Pelé</a>
+    <button class="btn-sec" onclick="novoPedido()">Fazer outro pedido</button>`;
+  document.getElementById('fPed').classList.remove('on');
+  abrir('fOk');
+}
+function novoPedido(){fecharTudo();document.getElementById('dObs').value='';window.scrollTo({top:0,behavior:'smooth'});}
+
+// ---------- folhas ----------
+function abrir(id){document.getElementById('veu').classList.add('on');document.getElementById(id).classList.add('on');document.body.style.overflow='hidden';}
+function fecharTudo(){document.querySelectorAll('.folha').forEach(f=>f.classList.remove('on'));document.getElementById('veu').classList.remove('on');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharTudo();});
+carregar();
+</script>
+</body>
+</html>

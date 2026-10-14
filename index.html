@@ -451,6 +451,14 @@
   .orc-modal{width:820px!important;}
   body:has(.modal-overlay.open) #fabNewLead{display:none!important;}
   .orc-item-cat{font-size:11px;color:var(--text3);}
+  .dp-orc-tit{display:flex;justify-content:space-between;align-items:center;}
+  .dp-orc-novo{background:none;border:1px solid var(--border2);color:var(--accent);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;}
+  .dp-orc{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);margin-bottom:8px;cursor:pointer;}
+  .dp-orc:hover{border-color:var(--border2);}
+  .dp-orc-num{font-weight:600;font-size:13px;}
+  .dp-orc-data{font-size:11px;color:var(--text3);margin-top:2px;}
+  .dp-orc-val{font-weight:700;font-size:14px;margin-bottom:4px;}
+  .dp-orc-vazio{font-size:12px;color:var(--text3);padding:6px 0;}
   .orc-grid-pronta{grid-template-columns:3fr 1fr 2fr!important;margin-bottom:0;}
   .orc-cores{grid-column:1/-1;font-size:12px;color:var(--text3);}
   .orc-tam select{font-weight:500;}
@@ -1516,6 +1524,10 @@ function setupSupportRealtime(){
       <div class="stage-pills" id="dpStagePills"></div>
     </div>
     <div class="detail-section" style="margin-top:16px;">
+      <div class="detail-section-title dp-orc-tit"><span>Orçamentos</span><button class="dp-orc-novo" onclick="orcDoLead()">+ Novo</button></div>
+      <div id="dpOrcs"><div class="dp-orc-vazio">Carregando…</div></div>
+    </div>
+    <div class="detail-section" style="margin-top:16px;">
       <div class="detail-section-title">Informações</div>
       <div class="detail-row"><label>Telefone</label><span id="dp-phone">—</span></div>
       <div class="detail-row"><label>E-mail</label><span id="dp-email">—</span></div>
@@ -2405,6 +2417,21 @@ function openDetail(id){
   document.getElementById('dpStagePills').innerHTML=Object.entries(STAGES).map(([k,st])=>`<div class="stage-pill s-${k} ${l.stage===k?'active':''}" onclick="updateStage('${l.id}','${k}')">${st.label}</div>`).join('');
   document.getElementById('detailPanel').classList.add('open');
   document.body.classList.add('detalhe-aberto');
+  dpCarregarOrcs(l.id);
+}
+// orçamentos vinculados ao lead aberto
+async function dpCarregarOrcs(leadId){
+  const el=document.getElementById('dpOrcs'); if(!el)return;
+  el.innerHTML='<div class="dp-orc-vazio">Carregando…</div>';
+  const {data,error}=await db.from('orcamentos').select('id,numero,status,total,created_at,origem').eq('lead_id',leadId).order('created_at',{ascending:false});
+  if(!currentDetailLead||currentDetailLead.id!==leadId)return;
+  if(error){el.innerHTML='<div class="dp-orc-vazio">Não foi possível carregar.</div>';return;}
+  if(!data||!data.length){el.innerHTML='<div class="dp-orc-vazio">Nenhum orçamento ainda.</div>';return;}
+  el.innerHTML=data.map(o=>{const s=(typeof ORC_STATUS!=='undefined'&&ORC_STATUS[o.status])||{n:o.status,c:'#8a90a0'};
+    return `<div class="dp-orc" onclick="closeDetail();orcAbrir('${o.id}')">
+      <div><div class="dp-orc-num">${orcCod(o.numero)}${o.origem==='site'?' · pelo site':''}</div><div class="dp-orc-data">${new Date(o.created_at).toLocaleDateString('pt-BR')}</div></div>
+      <div style="text-align:right"><div class="dp-orc-val">${o.status==='aguardando'?'—':orcBRL(o.total)}</div><span class="orc-st" style="color:${s.c};border-color:${s.c}55;background:${s.c}1a">${s.n}</span></div>
+    </div>`;}).join('');
 }
 async function updateStage(id,stage){
   const{error}=await db.from('leads').update({stage}).eq('id',id);
@@ -3161,6 +3188,7 @@ async function orcSalvar(silencioso){
     try{await loadLeads();renderPipeline();renderDashboard();}catch(e){}
   }
   if(!silencioso){showToast('Orçamento salvo!','success');orcFechar();}
+  if(currentDetailLead&&f.lead_id===currentDetailLead.id)dpCarregarOrcs(currentDetailLead.id);
   loadOrcamentos();
   return orcAtual;
 }
